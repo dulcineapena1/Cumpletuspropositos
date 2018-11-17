@@ -6,12 +6,13 @@
 }
 
 .header{
-  height: 37px;
+  height: 67px;
+  padding-left: 2%;
 }
 
 .todos{
-  height: 365px;
-  background-color: #f9f9f9;
+  margin: auto;
+  width: 100%;
 }
 
 
@@ -24,11 +25,7 @@
   margin-top: -131px;
   color: #4aad2a;
 }
-.calendar{
-  background-color: #f9f9f9;
-  height: 192px;
-  margin-top: 1px;
-}
+
 
 .propositos{
  
@@ -39,8 +36,8 @@
 
 .current{
   background-color: #4aad2a;
-  height: 318px;
   margin-top: 1px;
+  padding-bottom: 19px;
 }
 
 
@@ -76,7 +73,7 @@ h1:after {
   font-family: 'Cabin Condensed', sans-serif;
     margin: 0;
     font-size: 26px;
-    color: grey;
+    color: #186300;
 }
 
 .h3parrafo{
@@ -99,17 +96,21 @@ h1:after {
 }
 
 .listaproposito{
-  padding-left: 19%;
+  padding-left: 14%;
 }
 
 .listatodos{
   padding-left: 8%;
   height: 82%;
   width: 100%;
+  border-right: 5px solid #883b3b;
+}
+
+.diaC, .mesC, .nombreusuario{
+  font-family: 'Cabin Condensed', sans-serif;
 }
 
 .diaC, .mesC{
-  font-family: 'Cabin Condensed', sans-serif;
     margin: 0;
     font-size: 19px;
 }
@@ -124,6 +125,33 @@ h1:after {
 }
 
 .current2{
-  text-align: center;
-  color: #074810;
+  padding-left: 3%;
+  height: 82%;
+  width: 100%;
+  border-right: 1px solid #348819;
+}
+
+.avatar{
+  width: 24%;
+  padding-right: 6%;
+}
+
+.nombreusuario{
+  display: inline-block;
+  font-size: 19px;
+}
+
+.aside{
+  margin: 0;
+  padding: 0;
+  padding-right: 2%;
+  padding-top: 8%;
+}
+
+.progress{
+  margin-bottom: 9%;
+}
+
+.progress-bar{
+  background-color: #2f611e; 
 }
