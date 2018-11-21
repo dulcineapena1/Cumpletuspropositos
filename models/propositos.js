@@ -35,5 +35,20 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
+
+  Propositos.associate = function(models) {
+    Propositos.belongsTo(models.Usuario, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
+
+  Propositos.associate = function(models) {
+    Propositos.hasMany(models.ToDos, {
+      onDelete: "cascade"
+    });
+  };
+
   return Propositos;
 };

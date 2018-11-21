@@ -1,33 +1,74 @@
-<div id="home">
-  <div class="container">
-    <div class="row">
-      <div class="col-8 offset-2">
-        <h1>{{msg}}</h1>
-        <h2>This is our Home Page! Prueba de modificacion</h2>
-        <form class="clearfix mb-4" action="POST">
-          <div class="form-group">
-            <label for="example-text">Example Text</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
-          </div>
-          <div class="form-group">
-            <label for="example-description">Example Description</label>
-            <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Example Description"></textarea>
-          </div>
-          <button id="submit" class="btn btn-primary float-right">Submit</button>
-        </form>
-        <h3>Examples:</h3>
-        <ul id="example-list" class="list-group">
-          {{#each examples}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-danger float-right delete">ｘ</button>
-          </li>
-          {{/each}}
-        </ul>
-      </div>
+<img class="fondo2" src="img/fondohead-02.jpg" width="100%" height="10%" >
+
+<div class="container-fluid">
+    <div class="row mainlogin">
+        <div class="row logotipo">
+            <img class="logologin" src="img/logo.jpg" width="10%" height="10%" >
+        </div>
+        
+        <p class="texto">Es hora de lograr tus deseos, <strong>nosotros te ayudamos </strong> a conseguir tu objetivo</p>
+        <button type="button" id="empezar" class="btn btn-outline-light">¡Quiero lograr mis propósitos!</button>
+      
+        {{!-- Form para iniciar sesión --}}
+        <div class="row formularios">
+            <form id="iniciar-sesion">
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Usuario</label>
+                    <input type="text" class="form-control" id="usuario" placeholder="Usuario">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="inputPassword4">Contraseña</label>
+                    <input type="password" class="form-control" id="contraseña" placeholder="Contraseña">
+                </div>
+                <button id="ingresar" type="submit" class="btn btn-outline-light">Ingresar</button>
+                <button id="no-estoy-registrado" class="btn btn-dark">Quiero registrarme</button>
+            </form>
+           
+       
+
+            {{!-- Form para registrarse --}}
+            <form id="registrarse">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="usuario">Usuario</label>
+                        <input type="usuario" class="form-control" id="usuarioreg" placeholder="Usuario">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="contraseña">Contraseña</label>
+                        <input type="password" class="form-control" id="contraseñareg" placeholder="Contraseña">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombrereg" placeholder="nombre">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="apellido-materno">Apellido Materno</label>
+                        <input type="apellido-materno" class="form-control" id="apellido-maternoreg" placeholder="Apellido Materno">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="apellido-paterno">Apellido Paterno</label>
+                        <input type="apellido-paterno" class="form-control" id="apellido-paternoreg" placeholder="apellido-paterno">
+                    </div>
+                </div>
+                 <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="correo">Correo</label>
+                        <input type="correo" class="form-control" id="correoreg" placeholder="correo">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="telefono">Teléfono</label>
+                        <input type="telefono" class="form-control" id="telefonoreg" placeholder="telefono">
+                    </div>
+                </div>      
+                <button id="boton-registro" type="submit" class="btn btn-outline-light">Registrarse</button>
+            </form>
+
+        </div>
+    
     </div>
-  </div>
 </div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
+
+<script src="/js/login.js"></script>
