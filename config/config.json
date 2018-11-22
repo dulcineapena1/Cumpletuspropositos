@@ -2,14 +2,14 @@
   "development": {
     "username": "root",
     "password": "mac1as73",
-    "database": "exampledb",
+    "database": "propositosdb",
     "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": null,
-    "database": "testdb",
+    "password": "mac1as73",
+    "database": "propositosdb",
     "host": "localhost",
     "dialect": "mysql",
     "logging": false
