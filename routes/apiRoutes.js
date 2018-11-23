@@ -9,7 +9,15 @@ module.exports = function(app) {
   // });
 
   app.post("/api/registro", function(req, res) {
-    db.Usuario.create(req.body).then(function(dbUsuario) {
+    db.Usuario.create({
+      Nombre: req.body.nombrereg,
+      Apaterno: req.body.apaterno,
+      Amaterno: req.body.amaterno,
+      Email: req.body.emailreg,
+      Telefono: req.body.telefonoreg,
+      Usuario: req.body.usuario,
+      Contrasena: req.body.contrasena
+    }).then(function(dbUsuario) {
       res.json(dbUsuario);
     });
   });

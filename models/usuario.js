@@ -44,6 +44,20 @@ module.exports = function(sequelize, DataTypes) {
         not: ["^[a-z]+$", "i"],
         len: [1, 15]
       }
+    },
+    Usuario: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1, 10]
+      }
+    },
+    Contrasena: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1, 10]
+      }
     }
   });
 
