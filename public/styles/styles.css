@@ -256,6 +256,22 @@ ul{
  .done {
   text-decoration: line-through;
   text-decoration-color: white;
-  
-
 }
+
+#agregar-proposito{
+  margin: auto;
+  margin-top: -9%;
+}
+
+.input-group {
+  width: 78%;
+  float: left;
+  height: 38px;
+}
+
+
+.input-group-append button{
+    font-size: 100%;
+    height: 101%;
+}
+

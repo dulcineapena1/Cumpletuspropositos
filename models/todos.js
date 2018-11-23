@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       primaryKey: true
     },
-    ToDo: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

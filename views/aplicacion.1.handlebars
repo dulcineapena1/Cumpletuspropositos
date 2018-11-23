@@ -28,7 +28,7 @@
                 <button id="agregar-proposito" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">Empieza agregando un propósito</button>                
               
 
-              <!-- Inicio Modal Propósitos -->
+              <!-- Inicio Modal -->
                 <div class="modal " id="myModal" role="dialog">
                     <div class="modal-dialog">
                         <!-- Modal content-->
@@ -36,7 +36,26 @@
                             <div class="modal-header">
                                 <h4 class="modal-title">Agrega un propósito</h4>
                             </div>
-                           
+                            <!-- Formulario de categoría -->
+                            <div id="div-form-categoria" class="modal-body">                            
+                              <form id="form-categoria">
+                                    <div class="form-group">
+                                      <label for="seleccionar-categoria">Categoría</label>
+                                      <select class="form-control" id="seleccionar-categoria">
+                                        <option id="1">Viajes</option>
+                                        <option id="2">Salud</option>
+                                        <option id="3">Trabajo</option>
+                                        <option id="4">Social</option>
+                                      </select>
+                                    </div> 
+                                
+                              </form>
+                              <div class="modal-footer">
+                                  <button id="boton-registro-categoria" type="submit" class="btn btn-outline-light">Guardar</button>
+                                  <button id="cancelar-llenado-categoria" type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                              </div>
+
+                            </div>
 
                             <!-- Formulario de propósito -->
                             <div id="div-form-proposito" class="modal-body">
@@ -46,16 +65,6 @@
                                     <label for="llenar-proposito">Propósito</label>
                                     <input id="llenar-proposito" class="form-control"  placeholder="propósito">
                                   </div>
-
-                                  <div class="form-group">
-                                      <label for="seleccionar-categoria">Categoría</label>
-                                      <select class="form-control" id="seleccionar-categoria">
-                                        <option value="1">Viajes</option>
-                                        <option value="2">Salud</option>
-                                        <option value="3">Trabajo</option>
-                                        <option value="4">Social</option>
-                                      </select>
-                                  </div> 
 
                                     {{!-- <div class="form-group">
                                       <label for="seleccionar-categoria">Categoría</label>
@@ -78,69 +87,7 @@
                         </div>
                     </div>
                 </div>
-              {{!-- Cierre Modal Propósitos--}}
-
-
-              <!-- Inicio Modal ToDo -->
-                <div class="modal " id="myModal2" role="dialog">
-                    <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Agrega un To Do</h4>
-                            </div>
-                            <!-- Formulario de ToDo-->
-                            <div id="div-form-todo" class="modal-body">
-                              
-                              <form id="form-todo">
-                                  <div class="form-group">
-                                    <label for="llenado-proposito-todo">Tu propósito</label>
-                                    <input disabled id="llenado-proposito-todo" class="form-control" placeholder="">
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="llenar-todo">Todo</label>
-                                    <input id="llenar-todo" class="form-control"  placeholder="To Do">
-                                  </div>
-
-                  
-                                 
-                              </form>
-
-                              <div class="modal-footer">
-                                  <button id="boton-registro-todo" type="submit" class="btn btn-outline-light">Guardar</button>
-                                  <button id="cancelar-llenado-todo" type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                              </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-              {{!-- Cierre Modal ToDo--}}
-
-
-
-
-
-                {{!-- Sección Mis Propósitos. Se llena con lo que tenga la base de datos --}}
-                  <div class="row listadoproposito">
-                    <div id="elproposito" class="col-md-8 elproposito">
-                     
-                    </div>
-                  </div>
-                  
-                 
-
-                  {{!-- <div class="col-md-4 barraprogreso">
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-                    </div>
-                  </div>
-                </div>
-                 --}}
-                {{!-- <button id="crear-nuevo" type="button" class="btn btn-outline-success">+</button> --}}
-
-                
+              {{!-- Cierre Modal --}}
 
 
 

@@ -27,11 +27,62 @@ $(document).ready(function(){
     $('#myModal').toggle();
     $("#agregar-proposito").show(); 
   });
-  //Cancelar modal (por todo)
-  $("#cancelar-llenado-todo").on("click", function(){
-    event.preventDefault();
-    $('#myModal2').toggle();
-  });
+  
+  // $("#editar-nombre-proposito").on("click",function(){
+  //     //Habilito y deshabilito el botón de editar nombre
+  //     var ladata=$("input").attr("data-indicador","1");
+  //     //var mio = $("#nombrespropositos").find(ladata);
+      
+  //     console.log(this.ladata);
+      
+  //     var $elnombreproposito = $("#1p");
+  //     if ($elnombreproposito.attr("disabled")) {
+  //         $elnombreproposito.removeAttr("disabled");
+  //         $("#editar-nombre-proposito").text("Guardar nombre");
+  //       } 
+  //       else {
+  //         $elnombreproposito.prop("disabled",true);
+  //         $("#editar-nombre-proposito").text("Editar nombre");
+  //       }   
+
+  // }); //cierre onclick editar nombre
+
+
+  $("#editar-todo-proposito").on("click", function(){
+   
+ 
+  });//cierre onclick editar todo
+
+
+
+
+// //--Inicio mandar la CATEGORÍA del modal
+// $("#boton-registro-categoria").on("click",function(){
+//     event.preventDefault();
+//     mandarformcategoria({
+//       Categoria: $("#seleccionar-categoria").val().trim(),
+//     })
+
+//     $('#div-form-categoria').hide();
+//     $('#div-form-proposito').show();
+// }); //cierre on click boton-registro-categoria
+
+//   // A function for creating an categoria (newcategoria) es el contenedor del objeto creado arriba
+//   function mandarformcategoria(newcategoria) {
+//     $.post("/api/categorias", newcategoria)
+//       //.then(getProposito);
+    
+
+//   }
+
+
+// //--Fin mandar la CATEGORÍA del modal
+
+
+
+
+
+
 
 
 
@@ -79,12 +130,12 @@ $(document).ready(function(){
   // Este proceso lo inserta uno por uno (en html) al hacer cada submit
   function createPropositosRow(newproposito) {
     console.log(newproposito);
-    var newdiv = $("<tbody id=tbodypropositoss>").append("<tr>");  
+    var newdiv = $("<tr>");  
     newdiv.data("proposito",  newproposito);
     newdiv.append("<span class=badge>" +  newproposito.IdProposito +"</span>" );
     newdiv.append("<td id="+newproposito.IdProposito+">" +  newproposito.Proposito +"</td>" );
-    newdiv.append("<td><button data-nombreproposito="+newproposito.Proposito+" id="+newproposito.IdProposito+" class=boton-hacer-todo type=button class=btn  data-toggle=modal '>Crear ToDo</button></td>");
-               
+   
+    // newdiv.append("<td><a href='/blog?author_id=" +  newproposito.id + "'>Go to Posts</a></td>");
     // newdiv.append("<td><a href='/cms?author_id=" +  newproposito.id + "'>Create a Post</a></td>");
     // newdiv.append("<td><a style='cursor:pointer;color:red' class='delete-author'>Delete Author</a></td>");
     return newdiv;
@@ -92,12 +143,12 @@ $(document).ready(function(){
 
   // Esto hace el append al front de todo lo anterior
   function renderPropositosList(rows) {
-    $("#elproposito").children().not(":last").remove(); //como este proceso duplica los elementos, tengo que borrar el elemento duplicado con estas dos líneas
-    $("#elproposito ").children().last().remove();
-  
+    $("tbody").children().not(":last").remove(); //como este proceso duplica los elementos, tengo que borrar el elemento duplicado con estas dos líneas
+    $("tbody").children().last().remove();
     if (rows.length) {
       console.log(rows);
-      $("#elproposito ").prepend(rows);
+      var tbodyPreppendRows=$("tbody").prepend(rows);
+      $("#elproposito").append(tbodyPreppendRows);
     }
     // else {
     //   renderEmpty();
@@ -108,49 +159,6 @@ $(document).ready(function(){
 //---Final mandar el PROPÓSITO del modal
 
 
-
-//------------------->SECCIÓN TODO<------------------------------------------------
-
-
-  //Ingresar al modal hacer ToDo
-  $("body").on("click", ".boton-hacer-todo", function(){
-    $('#myModal2').toggle();
-    var datanombreproposito = $(this).attr("data-nombreproposito");
-    var dataidproposito= $(this).attr("id");
-    $("#llenado-proposito-todo").attr("placeholder",datanombreproposito); //le pongo el nombre del propósito seleccionado en el modal
-    $("#boton-registro-todo").attr("data-id-proposito",dataidproposito);
-  });
-
-
-
-  //Mandar el ToDo del modal
-  $("#boton-registro-todo").on("click",function(){
-    event.preventDefault();
-    $('#myModal2').toggle(); //Oculto el modal
-    
-    // No mandar nada si el campo del nombre del propósito está vacío
-    // if (!$("#llenar-todo").val().trim()) {
-    //   return;
-    // }
-
-   // Calling the mandarformtodo function and passing in the value of the name
-    //Se está creando un objeto con los valores del front
-    mandarformtodo({
-      title: $("#llenar-todo").val().trim(),
-      IdProposito: $("#boton-registro-todo").attr("data-id-proposito"),
-      IdStatus: 1,
-      Obligatorio: 0,
-      Start: 1,
-      End: 1
-    });
-    
-  }); //cierre onclick boton-registro-todo
-
-  // A function for creating an todo. (newtodo) es el contenedor del objeto creado arriba
-  function mandarformtodo(newtodo) {
-     $.post("/api/todos", newtodo)
-       //.then(getProposito);
-  }
 
 
 
