@@ -101,9 +101,21 @@
                                     <label for="llenar-todo">Todo</label>
                                     <input id="llenar-todo" class="form-control"  placeholder="To Do">
                                   </div>
+                                  
+                                  <form action="/action_page.php">
+                                    <label for="fecha-inicio">Fecha de inicio</label>
+                                    <input id="fecha-inicio" type="datetime-local" name="bdaytime">
+                                    <label for="fecha-termino">Fecha de término</label>
+                                    <input id="fecha-termino" type="datetime-local" name="bdaytime">
+                                    {{!-- ESTO ES SUBMIT DEL DATETIMEPIKER <input type="submit" value="Send"> --}}
+                                  </form>
 
-                  
-                                 
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="0" id="obligatorio">
+                                    <label class="form-check-label" for="obligatorio">Obligatorio</label>
+                                  </div>
+                                  
+                                         
                               </form>
 
                               <div class="modal-footer">
@@ -186,16 +198,18 @@
                   <h1 class="titulocurrent">Hoy toca</h1>
                 </div>
                 <div class="row todos">
-                    <div class="col-md-5 current2">
+                    <div id="current2" class="col-md-5 current2">
                         
                           
-                      <span class="badge badge-pill badge-primary">1</span> 
-                      <p class="h2parrafo">Hacer ejercicio</p>
+                      {{!-- <span class="badge badge-pill badge-primary">1</span> 
+                      <p id="titulo-proposito-select"class="h2parrafo">.</p> --}}
+                      <div id="current2-titulo" class="h2parrafo"></div>
+                      <div id="current2-listado">No hay todos aún</div>
+                      {{!-- 
                       <ul>
-                        <li class="h3parrafo">Definir el tipo de ejercicio que haré </li>
-                        <li class="h3parrafo">Comprar ropa para ejercitar </li>
-                      
-                      </ul>
+                        <li class="h3parrafo"></li>
+                      </ul> 
+                      --}}
 
                           
 

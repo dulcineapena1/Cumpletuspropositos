@@ -65,6 +65,34 @@ module.exports = function(app) {
         res.json(dbToDos);
       });
     });
+
+  //Get los todos que cumplan con la condición de tener el mismo idProposito
+  //Aquí al poner la ruta esa con un elemento envez de :id, me va a mostrar todo lo que cumpla con la condición
+  app.get("/api/todos/:id", function(req, res) {
+    // Find one Author with the id in req.params.id and return them to the user with res.json
+    db.ToDos.findAll({//aquí era findOne
+      where: {
+        IdProposito: req.params.id //aquí puse que en la ruta reemplazando e :id ahí toma como valor el idproposito, pero podría ser para otro caso que fuera el idtodo
+      },
+      limit:30
+    }).then(function(dbToDos) {
+      res.json(dbToDos);
+    });
+  });
+
+  // Obtengo all ToDos aquí en esa ruta
+  app.get("/api/todos", function(req, res) {
+    var query = {};
+    if (req.query) { //aqui era req.query.id (pero asi jala). Aquí puedo modificar con que elemento se va hacer el match entre tablas
+      query.IdProposito = req.query;
+    }
+    db.ToDos.findAndCountAll({
+      where: query , limit:30, offset:50
+    }).then(function(dbToDos) {
+      res.json(dbToDos);
+    });
+  });
+
 //--FIN PARTE TODO
 
 

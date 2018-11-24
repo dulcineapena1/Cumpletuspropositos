@@ -1,6 +1,11 @@
 $(document).ready(function(){
   $(".listadoproposito").hide(); 
   $("#crear-nuevo").hide(); 
+  $("#current2").hide(); 
+
+  getProposito(); //Obtener todos los propósitos en front si ya hay
+  //AAAAAQUIÍ PUEDES HACER UN IF, DE SI HAY ELEMENTOS DENTRO DE ESE DIV CORRER GETPROPOSITO, SI NO
+  //o puedes hacer un trigger del boton agregaar proposito y luego un trigger de cancelar
 
   //Marcar con una línea (tachando) cuando una tarea ya esté hecha (en sección Hoy Toca)
   var list = document.getElementsByTagName("li");
@@ -79,18 +84,19 @@ $(document).ready(function(){
   // Este proceso lo inserta uno por uno (en html) al hacer cada submit
   function createPropositosRow(newproposito) {
     console.log(newproposito);
+    var elnombreProposito= newproposito.Proposito.replace(/\ /g, '-'); //como quiero ponerle al valor de un botón (data) el nombre del propósito, tengo que borrar los espacios para que lo agarre, con esto reemplazo espacio por -
     var newdiv = $("<tbody id=tbodypropositoss>").append("<tr>");  
     newdiv.data("proposito",  newproposito);
     newdiv.append("<span class=badge>" +  newproposito.IdProposito +"</span>" );
-    newdiv.append("<td id="+newproposito.IdProposito+">" +  newproposito.Proposito +"</td>" );
-    newdiv.append("<td><button data-nombreproposito="+newproposito.Proposito+" id="+newproposito.IdProposito+" class=boton-hacer-todo type=button class=btn  data-toggle=modal '>Crear ToDo</button></td>");
+    newdiv.append("<td data-nombreproposito2="+elnombreProposito+"  id="+newproposito.IdProposito+" class=eltdproposito>" +  newproposito.Proposito +"</td>" );
+    newdiv.append("<td><button data-nombreproposito="+elnombreProposito+" id="+newproposito.IdProposito+" class=boton-hacer-todo type=button class=btn  data-toggle=modal '>Crear ToDo</button></td>");
                
     // newdiv.append("<td><a href='/cms?author_id=" +  newproposito.id + "'>Create a Post</a></td>");
     // newdiv.append("<td><a style='cursor:pointer;color:red' class='delete-author'>Delete Author</a></td>");
     return newdiv;
   }
 
-  // Esto hace el append al front de todo lo anterior
+  // Esto hace el append al front de todo lo anterior, este paso es necesario porque se hace el append uno por uno a ir haciendo submit
   function renderPropositosList(rows) {
     $("#elproposito").children().not(":last").remove(); //como este proceso duplica los elementos, tengo que borrar el elemento duplicado con estas dos líneas
     $("#elproposito ").children().last().remove();
@@ -116,9 +122,21 @@ $(document).ready(function(){
   $("body").on("click", ".boton-hacer-todo", function(){
     $('#myModal2').toggle();
     var datanombreproposito = $(this).attr("data-nombreproposito");
-    var dataidproposito= $(this).attr("id");
     $("#llenado-proposito-todo").attr("placeholder",datanombreproposito); //le pongo el nombre del propósito seleccionado en el modal
+    var dataidproposito= $(this).attr("id");
     $("#boton-registro-todo").attr("data-id-proposito",dataidproposito);
+    
+    
+  });
+
+
+  //Esto es para cambiar el value del checkbox del modal todo, de false/true a 0/1
+  $( '#obligatorio' ).on( 'click', function() {
+    if( $(this).is(':checked') ){
+        $("#obligatorio").attr("value",1);
+    } else {
+        $("#obligatorio").attr("value",0);
+    }
   });
 
 
@@ -129,32 +147,91 @@ $(document).ready(function(){
     $('#myModal2').toggle(); //Oculto el modal
     
     // No mandar nada si el campo del nombre del propósito está vacío
-    // if (!$("#llenar-todo").val().trim()) {
-    //   return;
-    // }
-
-   // Calling the mandarformtodo function and passing in the value of the name
+     if (!$("#llenar-todo").val().trim()) {
+       return;
+     }
+   
+    // Calling the mandarformtodo function and passing in the value of the name
     //Se está creando un objeto con los valores del front
     mandarformtodo({
       title: $("#llenar-todo").val().trim(),
       IdProposito: $("#boton-registro-todo").attr("data-id-proposito"),
-      IdStatus: 1,
-      Obligatorio: 0,
-      Start: 1,
-      End: 1
+      IdStatus: 0, //le pongo de default el 0
+      Obligatorio: $("#obligatorio").val(), //ya cambié un paso arriba el valor de esto por 0/1
+      start: $("#fecha-inicio").val(),
+      end: $("#fecha-termino").val()
     });
     
   }); //cierre onclick boton-registro-todo
 
   // A function for creating an todo. (newtodo) es el contenedor del objeto creado arriba
   function mandarformtodo(newtodo) {
-     $.post("/api/todos", newtodo)
-       //.then(getProposito);
+     $.post("/api/todos/", newtodo)
+       
+  }
+ 
+
+ 
+  //Mostrar los ToDos de cada Propósito en la sección CURRENT
+  $("body").on("click", ".eltdproposito", function(){
+    event.preventDefault();
+    $("#current2-listado").empty(); $("#current2-titulo").empty();
+    $("#current2").show(); 
+   
+    
+    var eliddeltd=$(this).attr("id"); //obtengo el id del propósito
+    console.log(eliddeltd);
+    
+    //El título del propósito lo muestro
+    var elpropositodeltd=$(this).attr("data-nombreproposito2");
+    $("#current2-titulo").append(elpropositodeltd.replace(/\-/g, '  '));
+
+
+    //Aquí le pongo de valor en la ruta el id del propósito, porque lo que me interesa es sacar los match de ese id dentro de tabla ToDos
+    $.get("/api/todos/"+eliddeltd, function(data) {
+      console.log("ESTOS SON LOS ToDos DEL propósito clickeado:", data);
+
+      var todosToAdd = [];
+      for (var i = 0; i < data.length; i++) {
+        console.log(data[i].title)
+        todosToAdd.push(createNewRowToDo(data[i]));
+        renderTodoList(todosToAdd);
+      }  
+    }); //cierre get api/todo/...
+   
+  }); //cierre on click tdproposito
+    
+  
+  // This function constructs a todos in HTML
+  function createNewRowToDo(lostodos){
+    var newdivtodo = $("<ul>");  
+    newdivtodo.data("todos",  lostodos);
+    //newdivtodo.append("<span class=badge>" +  newproposito.IdProposito +"</span>" );
+    //newdivtodo.append("<li id="+elnombrepropositodeltd+" class=h2parrafo >" +  lostodos.title +"</li>" );
+    newdivtodo.append("<li id="+lostodos.IdTodo+" class=h3parrafo >" +  lostodos.title +"</li>" );
+
+    //newdivtodo.append("<td><button data-nombreproposito="+elnombreProposito+" id="+newproposito.IdProposito+" class=boton-hacer-todo type=button class=btn  data-toggle=modal '>Crear ToDo</button></td>");
+    // newdiv.append("<td><a href='/cms?author_id=" +  newproposito.id + "'>Create a Post</a></td>");
+    // newdiv.append("<td><a style='cursor:pointer;color:red' class='delete-author'>Delete Author</a></td>");
+    return newdivtodo;
+  }
+ 
+  // Esto hace el append al front de todo lo anterior
+  function renderTodoList(rows) {
+    $("#current2-listado").append(rows)
+    // if (rows.length) {
+    //   console.log(rows);
+    //   $("#elproposito ").prepend(rows);
+    // }
+    // else {
+    //   renderEmpty();
+    // }
   }
 
 
 
-
+  
+   
 
 
 
