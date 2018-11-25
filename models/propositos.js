@@ -36,6 +36,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  
   Propositos.associate = function(models) {
     Propositos.belongsTo(models.Usuario, {
       foreignKey: {
@@ -45,9 +46,7 @@ module.exports = function(sequelize, DataTypes) {
   };
 
   Propositos.associate = function(models) {
-    Propositos.hasMany(models.ToDos, {
-      onDelete: "cascade"
-    });
+    models.Propositos.hasMany(models.ToDos)
   };
 
   return Propositos;

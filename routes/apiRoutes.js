@@ -2,7 +2,6 @@ var db = require("../models");
 
 module.exports = function(app) {
   
-
 //---INICIO PARTE LOGIN
     //Registrar Usuario (en login)
     app.post("/api/registro", function(req, res) {
@@ -12,7 +11,10 @@ module.exports = function(app) {
     });
 //--FINAL PARTE LOGIN
 
-//--INICIO PARTE CATEGORÍA
+
+//--INICIO PARTE CATEGORÍA (esto no es necesario ahorita que corra, puesto que para una primera fase del proyecto
+// las categorías se insertan en schema. Eso será útil cuando el uuario pueda crear sus propias categorías)
+    
     //Crear una nueva categoria con la data del req.body (modal)
     app.post("/api/categorias", function(req, res) {
       console.log(req.body);
@@ -27,11 +29,22 @@ module.exports = function(app) {
         res.json(dbCategorias);
       });
     });
+
 //--FIN PARTE CATEGORÍA
 
+
 //--INICIO PARTE PROPÓSITO
-    //Registrar Propósito (en modal)
-    //ESTO ES PARA MOSTRARLOS YA CUADO ESTÈN HECHOS
+
+    //POSTER CREAR un propósito con la data del req.body (modal)
+    app.post("/api/propositos", function(req, res) {
+      console.log(req.body);
+      db.Propositos.create(req.body).then(function(dbPropositos) {
+        res.json(dbPropositos);
+      });
+    });
+
+
+    //OBTENER LO POSTEADO Registrar Propósito (en modal)
     // Find all Propósitos and return them to the user with res.json
     app.get("/api/propositos", function(req, res) {
       db.Propositos.findAll({}).then(function(dbPropositos) {
@@ -39,33 +52,66 @@ module.exports = function(app) {
       });
     });
 
-    //Crear un propósito con la data del req.body (modal)
-    app.post("/api/propositos", function(req, res) {
-      console.log(req.body);
-      db.Propositos.create(req.body).then(function(dbPropositos) {
+
+    //ENCONTRAR EL QUE COINCIDA Encontrar un propósito en esa url según el idPropósito que le pongas en :id
+    app.get("/api/propositos/:id", function(req, res) {
+      db.Propositos.findOne({
+        where: {
+          idProposito: req.params.id
+        }
+      }).then(function(dbPropositos) {
         res.json(dbPropositos);
       });
     });
+
+
+    //BORRAR un propósito de la base de datos
+    app.delete("/api/propositos/:id", function(req, res) {
+      db.Propositos.destroy({
+        where: {
+          idProposito: req.params.id
+        }
+      }).then(function(dbPropositos) {
+        res.json(dbPropositos);
+      });
+    });
+
 //--FIN PARTE PROPÓSITO
 
+
 //--INICIO PARTE TODO
+
     //Registrar TODO (en modal)
-    //ESTO ES PARA MOSTRARLOS YA CUADO ESTÉN HECHOS
-    //Find all TODO and return them to the user with res.json
-    app.get("/api/todos", function(req, res) {
-      db.ToDos.findAll({}).then(function(dbToDos) {
-        res.json(dbToDos);
-      });
-    });
+    // app.get("/api/todos", function(req, res) {
+    //   db.ToDos.findAll({}).then(function(dbToDos) {
+    //     res.json(dbToDos);
+    //   });
+    // });
 
-    //Crear un todo con la data del req.body (modal)
-    app.post("/api/todos", function(req, res) {
-      console.log(req.body);
-      db.ToDos.create(req.body).then(function(dbToDos) {
-        res.json(dbToDos);
-      });
+  //POSTEAR CREATE un todo con la data del req.body (modal)
+  app.post("/api/todos", function(req, res) {
+    console.log(req.body);
+    db.ToDos.create(req.body).then(function(dbToDos) {
+      res.json(dbToDos);
     });
+  });
 
+
+  //OBTENER LO POSTEADO Obtengo all ToDos aquí en esa ruta
+  app.get("/api/todos", function(req, res) {
+    var query = {};
+    if (req.query) { //aqui era req.query.id (pero asi jala). Aquí puedo modificar con que elemento se va hacer el match entre tablas
+      query.IdProposito = req.query;
+    }
+    db.ToDos.findAndCountAll({
+      where: query , limit:30, offset:50
+    }).then(function(dbToDos) {
+      res.json(dbToDos);
+    });
+  });
+
+
+  //OBTENER EL QUE COINCIDA CON EL PARÁMETRO :id 
   //Get los todos que cumplan con la condición de tener el mismo idProposito
   //Aquí al poner la ruta esa con un elemento envez de :id, me va a mostrar todo lo que cumpla con la condición
   app.get("/api/todos/:id", function(req, res) {
@@ -80,41 +126,19 @@ module.exports = function(app) {
     });
   });
 
-  // Obtengo all ToDos aquí en esa ruta
-  app.get("/api/todos", function(req, res) {
-    var query = {};
-    if (req.query) { //aqui era req.query.id (pero asi jala). Aquí puedo modificar con que elemento se va hacer el match entre tablas
-      query.IdProposito = req.query;
-    }
-    db.ToDos.findAndCountAll({
-      where: query , limit:30, offset:50
-    }).then(function(dbToDos) {
-      res.json(dbToDos);
+
+  //BORRAR un todo de la base de datos
+  app.delete("/api/todos/:id", function(req, res) {
+    db.ToDos.destroy({
+      where: {
+        idProposito: req.params.id
+      }
+    }).then(function(dbPropositos) {
+      res.json(dbPropositos);
     });
   });
 
 //--FIN PARTE TODO
 
 
-
-
-
-
-
-
-  // // Create a new example
-  // app.post("/api/examples", function(req, res) {
-  //   db.Example.create(req.body).then(function(dbExample) {
-  //     res.json(dbExample);
-  //   });
-  // });
-
-  // // Delete an example by id
-  // app.delete("/api/examples/:id", function(req, res) {
-  //   db.Example.destroy({ where: { id: req.params.id } }).then(function(
-  //     dbExample
-  //   ) {
-  //     res.json(dbExample);
-  //   });
-  // });
 };
