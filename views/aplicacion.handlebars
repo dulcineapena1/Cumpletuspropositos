@@ -1,4 +1,3 @@
-
 <div class="container-fluid">
   <div class="row header">
       <div class="col-md-4 headusuario">
@@ -6,81 +5,157 @@
           <div class="nombreusuario">Ana López</div>
 
       </div>
-      <div class="col-md-9 logotipo"></div>
+      <div class="col-md-8 logotipo">
+        <div class="textodeayuda">AGREGA UN PROPÓSITO
+                   <button id="agregar-proposito" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">+</button>                
+
+        </div>
+
+      </div>
+
   </div>
   
   <div class="row main">
-      <div class="col-md-4 aside">
-           
-           
-               <div id='calendar'></div>
-
-            
-            
+      <div class="col-md-4 aside">      
+               <div id='calendar'></div>        
       </div>
 
       <div class="col-md-8 general">
             <div class="row propositos">
                 <div class="row espaciotitulo">
                     <h1>Mis propósitos</h1>
+
                 </div>
 
-                {{!-- <div class="row listadoproposito">
-                  <div class="col-md-6 elproposito">
-                     <span class="badge badge-pill badge-primary">1</span> <p class="hparrafo">Hacer ejercicio</p>
+              <!-- Inicio Modal Propósitos -->
+                <div class="modal " id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Agrega un propósito</h4>
+                            </div>
+                           
+
+                            <!-- Formulario de propósito -->
+                            <div id="div-form-proposito" class="modal-body">
+                              
+                              <form id="form-proposito">
+                                  <div class="form-group">
+                                    <label for="llenar-proposito">Propósito</label>
+                                    <input id="llenar-proposito" class="form-control"  placeholder="propósito">
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label for="seleccionar-categoria">Categoría</label>
+                                      <select class="form-control" id="seleccionar-categoria">
+                                        <option value="1">Viajes</option>
+                                        <option value="2">Salud</option>
+                                        <option value="3">Trabajo</option>
+                                        <option value="4">Social</option>
+                                      </select>
+                                  </div> 
+                             
+                                  {{!-- <div class="form-group">
+                                    <label for="llenar-comentarios">Descripción</label>
+                                    <textarea id="llenar-comentarios" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                  </div> --}}
+                              </form>
+
+                              <div class="modal-footer">
+                                  <button id="boton-registro" type="submit" class="btn btn-default">Guardar</button>
+                                  <button id="cancelar-llenado-proposito" type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                              </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+              {{!-- Cierre Modal Propósitos--}}
+
+
+              <!-- Inicio Modal ToDo -->
+                <div class="modal " id="myModal2" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Agrega una acción para lograr el propósito</h4>
+                            </div>
+                            <!-- Formulario de ToDo-->
+                            <div id="div-form-todo" class="modal-body">
+                              
+                              <form id="form-todo">
+                                  <div class="form-group">
+                                    <label for="llenado-proposito-todo">Tu propósito</label>
+                                    <input disabled id="llenado-proposito-todo" class="form-control" placeholder="">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="llenar-todo">Acción</label>
+                                    <input id="llenar-todo" class="form-control"  placeholder="Acción">
+                                  </div>
+                                  
+                                  <form action="/action_page.php">
+                                    <label for="fecha-inicio">Fecha de inicio</label>
+                                    <input id="fecha-inicio" type="datetime-local" name="bdaytime">
+                                    <br><br>
+                                    <label for="fecha-termino">Fecha de término</label>
+                                    <input id="fecha-termino" type="datetime-local" name="bdaytime">
+                                    {{!-- ESTO ES SUBMIT DEL DATETIMEPIKER <input type="submit" value="Send"> --}}
+                                  </form>
+
+                                  {{!-- <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="0" id="obligatorio">
+                                    <label class="form-check-label" for="obligatorio">Obligatorio</label>
+                                  </div> --}}
+            
+                              </form>
+
+                              <div class="modal-footer">
+                                  <button id="boton-registro-todo" type="submit" class="btn btn-outline-light">Guardar</button>
+                                  <button id="cancelar-llenado-todo" type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                              </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+              {{!-- Cierre Modal ToDo--}}
+
+
+                {{!-- Sección Mis Propósitos. Se llena con lo que tenga la base de datos --}}
+                  <div class="col-md-8 listadoproposito">
+                    <div id="elproposito" class="col-md-8 elproposito">
+                     
+                    </div>
                   </div>
-                  <div class="col-md-6 barraprogreso">
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-                      </div>
+                  {{!-- ESTO PARA UNA SIGUIENTE FASE, MUESTRA BARRA DE PROGRESO PARA CUMPLIR UN PROPÓSITO
+                  <div class="col-md-4 barraprogreso">
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                    </div>
                   </div>
                 </div>
-
-
-                <div class="row listadoproposito">
-                  <div class="col-md-6 elproposito">
-                      <span class="badge badge-pill badge-primary">2</span><p class="hparrafo">Cambiar de trabajo</p>
-                  </div>
-                  <div class="col-md-6 barraprogreso">
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
-                      </div>
-                  </div>
-                </div>
-
-                <div class="row listadoproposito">
-                  <div class="col-md-6 elproposito">
-                      <span class="badge badge-pill badge-primary">3</span><p class="hparrafo">Cambiar de trabajo</p>
-                  </div>
-                  <div class="col-md-6 barraprogreso">
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
-                      </div>
-                  </div>
-                </div> --}}
-
-
-                 
-               
+                 --}}     
             </div>
+
             <div class="row current">
                 <div class="row espaciotitulo">
-                  <h1 class="titulocurrent">Hoy toca</h1>
+                  <h1 class="titulocurrent">Detalle</h1>
                 </div>
-                <div class="row todos">
-                    <div class="col-md-5 current2">
-                        
-                          
-                      <span class="badge badge-pill badge-primary">1</span> 
-                      <p class="h2parrafo">Hacer ejercicio</p>
+                <div class="col-md-12 todos">
+                    <div id="current2" class="col-md-12 current2"> 
+                      {{!-- <span class="badge badge-pill badge-primary">1</span> 
+                      <p id="titulo-proposito-select"class="h2parrafo">.</p> --}}
+                      <div id="current2-titulo" class="h2parrafo"></div>
+                      <div id="current2-listado"></div>
+                      {{!-- 
                       <ul>
-                        <li class="h3parrafo">Definir el tipo de ejercicio que haré </li>
-                        <li class="h3parrafo">Comprar ropa para ejercitar </li>
-                      
-                      </ul>
-
-                          
-
+                        <li class="h3parrafo"></li>
+                      </ul> 
+                      --}}
                     </div>
                 </div>
             </div>
@@ -96,98 +171,63 @@
 <script src="/js/index.js"></script>
 <script src="/js/aplicacion.js"></script>
 
-
-
-
-
-
-{{!-- Full Calendar --}}
+{{!-- Este script es el que hace el vínculo base de datos-calendario Full Calendar --}}
 <script>
-
   $(document).ready(function() {
+      
+    var titulo=[]
+    var inicio=[]
+    var fin=[]
 
+    var terciaria = []; //Almacena el objeto en un formato aceptable para FullCalendar
+
+
+    
+    $.get("/api/todos", function(data) {
+      for (var i = 0; i < data.length; i++) {
+            terciaria[i] = {
+                title: data[i].title,
+                start: data[i].start,
+                end: data[i].end
+            };
+        }
+    }).then(laultima)//fin getapi
   
 
-    $('#calendar').fullCalendar({
-      height: 'auto',
-    
-       
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,basicWeek,basicDay',
 
+    function laultima(){
+        console.log("terciaria",terciaria);
+  
+        $('#calendar').fullCalendar({
+            height: 'auto', // Indispensable para poder acomodarlo visualmente
+            header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'month,basicWeek,basicDay',
+            },
+            defaultDate: '2018-01-01',
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events:  terciaria
+            //Este es el expected format ouput
+            //  [{
+            //    title: titulo,
+            //    start: inicio,
+            //    end:fin
+            //  }]
+        });//fin fullCalendar
+    }//fin funcion laultima
+        
+    //Esto logra un resultado similar al que hice con el loop, se deja como referencia
+    //elobjeto.push({title: titulo, start:inicio, end:fin});
+    //console.log("el evento Calendar",elobjeto);
 
-
-
-      },
-      defaultDate: '2018-03-12',
-      navLinks: true, // can click day/week names to navigate views
-      editable: true,
-      eventLimit: true, // allow "more" link when too many events
-      events: [
-        {
-          title: 'All Day Event',
-          start: '2018-03-01'
-        },
-        {
-          title: 'Long Event',
-          start: '2018-03-07',
-          end: '2018-03-10'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2018-03-09T16:00:00'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2018-03-16T16:00:00'
-        },
-        {
-          title: 'Conference',
-          start: '2018-03-11',
-          end: '2018-03-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2018-03-12T10:30:00',
-          end: '2018-03-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2018-03-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2018-03-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2018-03-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2018-03-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2018-03-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'http://google.com/',
-          start: '2018-03-28'
-        }
-      ]
-    });
-
-  });
-
+  });//fin document ready
 </script>
-<style>
 
+
+<style>
   body {
     margin: 40px 10px;
     padding: 0;
@@ -198,8 +238,5 @@
   #calendar {
     max-width: 900px;
     margin: 0 auto;
-
-    
   }
-
 </style>

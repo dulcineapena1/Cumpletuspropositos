@@ -28,13 +28,13 @@ module.exports = function(sequelize, DataTypes) {
     },
     Comentarios: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       validate: {
-        isAlphanumeric: true,
         len: [1, 500]
       }
     }
   });
+
 
   Propositos.associate = function(models) {
     Propositos.belongsTo(models.Usuario, {
@@ -45,9 +45,7 @@ module.exports = function(sequelize, DataTypes) {
   };
 
   Propositos.associate = function(models) {
-    Propositos.hasMany(models.ToDos, {
-      onDelete: "cascade"
-    });
+    models.Propositos.hasMany(models.ToDos)
   };
 
   return Propositos;

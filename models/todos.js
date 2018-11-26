@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       primaryKey: true
     },
-    ToDo: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -39,6 +39,14 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   });
+
+  ToDos.associate = function (models) {
+    models.ToDos.belongsTo(models.Propositos,{
+      onDelete: "CASCADE"
+      
+      
+    });
+  };
 
   return ToDos;
 };
