@@ -13,6 +13,7 @@
 .todos{
   margin: auto;
   width: 100%;
+  text-align: center;
 }
 
 
@@ -43,6 +44,7 @@
   margin-top: 15px;
   padding-bottom: 19px;
   border-radius: 15px;
+  min-height: 240px;
 }
 
 #iniciar-sesion{
@@ -80,7 +82,7 @@ h1:after {
 .h2parrafo{
   font-family: 'Cabin Condensed', sans-serif;
     margin: 0;
-    font-size: 26px;
+    font-size: 290%;
     color: #186300;
 }
 
@@ -119,7 +121,7 @@ h1:after {
   border-right: 5px solid #883b3b;
 }
 
-.diaC, .mesC, .nombreusuario{
+.diaC, .mesC, .nombreusuario,.boton-hacer-todo, .modal,.textodeayuda{
   font-family: 'Cabin Condensed', sans-serif;
 }
 
@@ -141,7 +143,7 @@ h1:after {
   padding-left: 3%;
   height: 82%;
   width: 100%;
-  border-right: 1px solid #348819;
+  /* border-right: 1px solid #348819; */
 }
 
 .avatar{
@@ -259,8 +261,9 @@ ul{
 }
 
 #agregar-proposito{
-  margin: auto;
-  margin-top: -9%;
+  font-size: 100%;
+  margin: 0;
+  width: 54px;
 }
 
 .input-group {
@@ -275,3 +278,68 @@ ul{
     height: 101%;
 }
 
+#boton-registro-todo{
+  background-color: green;
+}
+
+.boton-hacer-todo{
+  border: #4aad2a;
+  border-width: 2px;
+  border-style: solid;
+  background-color: white;
+  color: #4aad2a;
+  border-radius: 39px;
+  margin-bottom: 11px;
+  margin-left: 65px;
+}
+
+#elproposito{
+  width: 100%;
+  margin: auto;
+}
+
+.delete-proposito{
+  margin-bottom: 14px;
+    margin-left: 117%;
+
+    border: #aa4016;
+    border-width: 2px;
+    border-style: solid;
+    background-color: white;
+    color: #aa4016;
+    border-radius: 39px;
+
+}
+
+.eltdproposito{
+  font-family: 'Cabin Condensed', sans-serif;
+  font-size: 162%;
+  cursor:pointer;
+}
+
+.textodeayuda{
+  float: right;
+}
+
+
+.textodeayuda{
+  font-size: 162%;
+}
+
+.headusuario{
+  height: 25px;
+}
+
+.h7parrafo{
+  color: #1be81b;
+  font-size: 148%;
+}
+
+li{
+  list-style: none;
+}
+
+.h8parrafo{
+  background-color: #2b9c2b;
+  font-size: 162%;
+}

@@ -81,12 +81,12 @@ module.exports = function(app) {
 
 //--INICIO PARTE TODO
 
-    //Registrar TODO (en modal)
-    // app.get("/api/todos", function(req, res) {
-    //   db.ToDos.findAll({}).then(function(dbToDos) {
-    //     res.json(dbToDos);
-    //   });
-    // });
+   // OBTENER LO POSTEADO Obtengo all ToDos aquí en esa ruta
+    app.get("/api/todos", function(req, res) {
+      db.ToDos.findAll({}).then(function(dbToDos) {
+        res.json(dbToDos);
+      });
+    });
 
   //POSTEAR CREATE un todo con la data del req.body (modal)
   app.post("/api/todos", function(req, res) {
@@ -97,18 +97,18 @@ module.exports = function(app) {
   });
 
 
-  //OBTENER LO POSTEADO Obtengo all ToDos aquí en esa ruta
-  app.get("/api/todos", function(req, res) {
-    var query = {};
-    if (req.query) { //aqui era req.query.id (pero asi jala). Aquí puedo modificar con que elemento se va hacer el match entre tablas
-      query.IdProposito = req.query;
-    }
-    db.ToDos.findAndCountAll({
-      where: query , limit:30, offset:50
-    }).then(function(dbToDos) {
-      res.json(dbToDos);
-    });
-  });
+  // //OBTENER LO POSTEADO Obtengo all ToDos aquí en esa ruta
+  // app.get("/api/todos", function(req, res) {
+  //   var query = {};
+  //   if (req.query) { //aqui era req.query.id (pero asi jala). Aquí puedo modificar con que elemento se va hacer el match entre tablas
+  //     query.IdProposito = req.query;
+  //   }
+  //   db.ToDos.findAndCountAll({
+  //     where: query , limit:30, offset:50
+  //   }).then(function(dbToDos) {
+  //     res.json(dbToDos);
+  //   });
+  // });
 
 
   //OBTENER EL QUE COINCIDA CON EL PARÁMETRO :id 

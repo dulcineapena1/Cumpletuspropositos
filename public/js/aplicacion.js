@@ -1,12 +1,8 @@
 $(document).ready(function(){
-  $(".listadoproposito").hide(); 
-  $("#crear-nuevo").hide(); 
   $("#current2").hide(); 
 
   getProposito(); //Obtener todos los propósitos en front si ya hay
-  //AAAAAQUIÍ PUEDES HACER UN IF, DE SI HAY ELEMENTOS DENTRO DE ESE DIV CORRER GETPROPOSITO, SI NO
-  //o puedes hacer un trigger del boton agregaar proposito y luego un trigger de cancelar
-
+  
   //Marcar con una línea (tachando) cuando una tarea ya esté hecha (en sección Hoy Toca)
   var list = document.getElementsByTagName("li");
   for(var i=0; i<list.length; i++){
@@ -20,7 +16,6 @@ $(document).ready(function(){
   $("#agregar-proposito").on("click", function(){
     $("#agregar-proposito").hide(); 
     $(".listadoproposito").toggle(); 
-    $("#crear-nuevo").toggle(); 
     $('#myModal').toggle();
     
   });
@@ -31,6 +26,7 @@ $(document).ready(function(){
     event.preventDefault();
     $('#myModal').toggle();
     $("#agregar-proposito").show(); 
+    $(".listadoproposito").show()
   });
   //Cancelar modal (por todo)
   $("#cancelar-llenado-todo").on("click", function(){
@@ -57,7 +53,8 @@ $(document).ready(function(){
       // Se está creando un objeto con los valores del front
       mandarformproposito({
         Proposito: $("#llenar-proposito").val().trim(),
-        Comentarios: $("#llenar-comentarios").val().trim(),
+        Comentarios: 0,
+                    //$("#llenar-comentarios").val().trim(),
         IdCat: $("#seleccionar-categoria").val(), //las categorías están previamente cargadas en html
         IdUsuario: 1
       });
@@ -90,8 +87,8 @@ $(document).ready(function(){
       newdiv.data("proposito",  newproposito);
       // newdiv.append("<span class=badge>" +  newproposito.IdProposito +"</span>" );
       newdiv.append("<td data-nombreproposito2="+elnombreProposito+"  id="+newproposito.IdProposito+" class=eltdproposito>" +  newproposito.Proposito +"</td>" );
-      newdiv.append("<td><button data-nombreproposito="+elnombreProposito+" id="+newproposito.IdProposito+" class=boton-hacer-todo type=button class=btn  data-toggle=modal '>Crear ToDo</button></td>");
-      newdiv.append("<td><button data-borraridproposito="+newproposito.IdProposito+" class=delete-proposito>Borrar Propósito</button></td>");
+      newdiv.append("<td><button data-nombreproposito="+elnombreProposito+" id="+newproposito.IdProposito+" class=boton-hacer-todo type=button class=btn  data-toggle=modal '>Agregar Acción</button></td>");
+      newdiv.append("<td><button data-borraridproposito="+newproposito.IdProposito+" class=delete-proposito>X</button></td>");
       return newdiv;
   }
 
@@ -104,9 +101,7 @@ $(document).ready(function(){
         console.log(rows);
         $("#elproposito ").prepend(rows);
       }
-      // else {
-      //   renderEmpty();
-      // }
+     
   }
  
 //--------.....Final mandar el PROPÓSITO del modal
@@ -149,8 +144,6 @@ $(document).ready(function(){
     $("#llenado-proposito-todo").attr("placeholder",datanombreproposito); //le pongo el nombre del propósito seleccionado en el modal
     var dataidproposito= $(this).attr("id");
     $("#boton-registro-todo").attr("data-id-proposito",dataidproposito);
-    
-    
   });
 
 
@@ -168,10 +161,12 @@ $(document).ready(function(){
   //Mandar el ToDo del modal
   $("#boton-registro-todo").on("click",function(){
     event.preventDefault();
+    location.reload();//Vuelvo a cargar la página completa para que se muestren los cambios
+
     $('#myModal2').toggle(); //Oculto el modal
     
-    // No mandar nada si el campo del nombre del propósito está vacío
-     if (!$("#llenar-todo").val().trim()) {
+    // No mandar nada si el los campos están vacíos
+     if (!$("#llenar-todo").val().trim() || !$("#fecha-inicio").val() || !$("#fecha-termino").val() ) {
        return;
      }
    
@@ -181,7 +176,8 @@ $(document).ready(function(){
       title: $("#llenar-todo").val().trim(),
       IdProposito: $("#boton-registro-todo").attr("data-id-proposito"),
       IdStatus: 0, //le pongo de default el 0
-      Obligatorio: $("#obligatorio").val(), //ya cambié un paso arriba el valor de esto por 0/1
+      Obligatorio: 0,
+                    //$("#obligatorio").val(),// ya cambié un paso arriba el valor de esto por 0/1
       start: $("#fecha-inicio").val(),
       end: $("#fecha-termino").val()
     });
@@ -226,9 +222,9 @@ $(document).ready(function(){
     newdivtodo.data("todos",  lostodos);
     //newdivtodo.append("<span class=badge>" +  newproposito.IdProposito +"</span>" );
     //newdivtodo.append("<li id="+elnombrepropositodeltd+" class=h2parrafo >" +  lostodos.title +"</li>" );
-    newdivtodo.append("<li id="+lostodos.IdTodo+" class=h3parrafo >" +  lostodos.title +"</li>" );
-    newdivtodo.append("<li data-fechainicio="+lostodos.start+" class=h3parrafo ><p class=h4parrafo>"+"INICIA"+ "</p>"+ lostodos.start +"</li>" );
-    newdivtodo.append("<li data-fechatermino="+lostodos.end+" class=h3parrafo ><p class=h4parrafo>"+"TERMINA"+ "</p>"+ lostodos.end +"</li>" );
+    newdivtodo.append("<li id="+lostodos.IdTodo+" class=h8parrafo >" +  lostodos.title +"</li>" );
+    newdivtodo.append("<li data-fechainicio="+lostodos.start+" class=h3parrafo ><p class=h7parrafo>"+"INICIA"+ "</p>"+ lostodos.start +"</li>" );
+    newdivtodo.append("<li data-fechatermino="+lostodos.end+" class=h3parrafo ><p class=h7parrafo>"+"TERMINA"+ "</p>"+ lostodos.end +"</li>" );
     //newdivtodo.append("<td><button data-nombreproposito="+elnombreProposito+" id="+newproposito.IdProposito+" class=boton-hacer-todo type=button class=btn  data-toggle=modal '>Crear ToDo</button></td>");
     // newdiv.append("<td><a href='/cms?author_id=" +  newproposito.id + "'>Create a Post</a></td>");
     // newdiv.append("<td><a style='cursor:pointer;color:red' class='delete-author'>Delete Author</a></td>");

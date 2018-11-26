@@ -28,15 +28,14 @@ module.exports = function(sequelize, DataTypes) {
     },
     Comentarios: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       validate: {
-        isAlphanumeric: true,
         len: [1, 500]
       }
     }
   });
 
-  
+
   Propositos.associate = function(models) {
     Propositos.belongsTo(models.Usuario, {
       foreignKey: {
