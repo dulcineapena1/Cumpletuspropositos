@@ -249,10 +249,11 @@ ul{
 }
 
 
-.h3parrafo:hover{
+.h8parrafo:hover{
     border: 1px;
     border-color: #2f611e;
     border-style: dashed;
+    cursor:pointer;
  }
 
  .done {

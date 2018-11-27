@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     IdStatus: {
       type: DataTypes.INTEGER,
+      defaultValue: false,
       allowNull: false,
       validate: {
         not: ["^[a-z]+$", "i"]
@@ -31,11 +32,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     start: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull: false
     },
     end: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull: false
     }
   });

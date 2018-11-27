@@ -174,48 +174,61 @@
 {{!-- Este script es el que hace el vínculo base de datos-calendario Full Calendar --}}
 <script>
   $(document).ready(function() {
-      
-    var titulo=[]
-    var inicio=[]
-    var fin=[]
+   
+ //   $("body").on("click", ".h8parrafo",function(){
+ //     color= 'red';
+ //     console.log("color",color);
+       
+     // hacerget();
+  //  })
+
 
     var terciaria = []; //Almacena el objeto en un formato aceptable para FullCalendar
+    var color=''
 
-
+      
     
+  hacerget();
+    function hacerget(){
     $.get("/api/todos", function(data) {
       for (var i = 0; i < data.length; i++) {
             terciaria[i] = {
                 title: data[i].title,
                 start: data[i].start,
-                end: data[i].end
+                end: data[i].end,
+                color: color
             };
         }
     }).then(laultima)//fin getapi
-  
+  }
 
 
     function laultima(){
+        
+        console.log("color",color);
         console.log("terciaria",terciaria);
   
         $('#calendar').fullCalendar({
+            eventColor: 'green',
             height: 'auto', // Indispensable para poder acomodarlo visualmente
             header: {
               left: 'prev,next today',
               center: 'title',
               right: 'month,basicWeek,basicDay',
             },
-            defaultDate: '2018-01-01',
+            defaultDate: '2018-11-01',
             navLinks: true, // can click day/week names to navigate views
             editable: true,
             eventLimit: true, // allow "more" link when too many events
-            events:  terciaria
+            events:  terciaria,
+            
             //Este es el expected format ouput
             //  [{
             //    title: titulo,
             //    start: inicio,
             //    end:fin
             //  }]
+           
         });//fin fullCalendar
     }//fin funcion laultima
         

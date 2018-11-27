@@ -80,6 +80,47 @@ module.exports = function(app) {
 
 
 //--INICIO PARTE TODO
+    //---______________ToDo by IdTodo
+    app.get("/api/todosidtodos/", function(req, res) {
+      db.ToDos.findAll({}).then(function(dbToDos) {
+        res.json(dbToDos);
+      });
+    });
+    
+    app.get("/api/todosidtodos/:id", function(req, res) {
+      db.ToDos.findAll({//aquí era findOne
+        where: {
+          IdTodo: req.params.id,
+        },
+        limit:30
+      }).then(function(dbToDos) {
+        res.json(dbToDos);
+      });
+    });
+
+    // app.delete("/api/todosidtodos/:id", function(req, res) {
+    //   db.ToDos.destroy({
+    //     where: {
+    //       idProposito: req.params.id
+    //     }
+    //   }).then(function(dbPropositos) {
+    //     res.json(dbPropositos);
+    //   });
+    // });
+
+    app.put("/api/todosidtodos/", function(req, res) {
+      db.ToDos.update(
+        req.body,
+       
+        {where: {IdTodo: req.body.id} }
+      ).then(function(dbToDos) {
+        res.json(dbToDos);
+      });
+    });
+
+    //---_______________
+
+
 
    // OBTENER LO POSTEADO Obtengo all ToDos aquí en esa ruta
     app.get("/api/todos", function(req, res) {
@@ -87,6 +128,7 @@ module.exports = function(app) {
         res.json(dbToDos);
       });
     });
+
 
   //POSTEAR CREATE un todo con la data del req.body (modal)
   app.post("/api/todos", function(req, res) {
@@ -111,11 +153,10 @@ module.exports = function(app) {
   // });
 
 
-  //OBTENER EL QUE COINCIDA CON EL PARÁMETRO :id 
+  //OBTENER EL ToDo QUE COINCIDA CON EL PARÁMETRO :id (que es el propósito)
   //Get los todos que cumplan con la condición de tener el mismo idProposito
   //Aquí al poner la ruta esa con un elemento envez de :id, me va a mostrar todo lo que cumpla con la condición
   app.get("/api/todos/:id", function(req, res) {
-    // Find one Author with the id in req.params.id and return them to the user with res.json
     db.ToDos.findAll({//aquí era findOne
       where: {
         IdProposito: req.params.id //aquí puse que en la ruta reemplazando e :id ahí toma como valor el idproposito, pero podría ser para otro caso que fuera el idtodo

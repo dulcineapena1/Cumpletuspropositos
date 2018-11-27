@@ -188,6 +188,7 @@ $(document).ready(function(){
   // A function for creating an todo. (newtodo) es el contenedor del objeto creado arriba
   function mandarformtodo(newtodo) {
      $.post("/api/todos/", newtodo)    
+     $.post("/api/todosidtodos/", newtodo)  
   }
  
 
@@ -239,10 +240,41 @@ $(document).ready(function(){
     //   console.log(rows);
     //   $("#elproposito ").prepend(rows);
     // }
-    // else {
-    //   renderEmpty();
-    // }
+    
   }
+
+  //Actualizar estado del ToDo a "hecho"
+  $("body").on("click", ".h8parrafo", function(){
+    this.classList.toggle("done");
+    id=$(this).attr("id");
+
+   
+    
+
+      
+    // actualizarstatus({
+    //   IdTodo: 3,
+    //   title: "hola",
+    //   IdProposito:2, 
+    //   IdStatus: 1, 
+    //   Obligatorio: 0,
+    //   start: "2018-11-27 07:00:00",
+    //   end: "2018-11-28 07:00:00"
+    // })
+
+    // function actualizarstatus(nuevostatus){
+    //   $.ajax({
+    //     method: "PUT",
+    //     url: "/api/todosidtodos/" ,
+    //     data: nuevostatus
+    //   })
+       
+
+    
+    
+  })
+
+
 
 
 
