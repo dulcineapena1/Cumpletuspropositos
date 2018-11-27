@@ -250,7 +250,6 @@ $(document).ready(function(){
 
    
     
-
       
     // actualizarstatus({
     //   IdTodo: 3,
