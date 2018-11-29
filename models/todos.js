@@ -31,13 +31,17 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
+    recurrente: {
+      type: DataTypes.STRING,//estaba como integer
+      allowNull: false
+    },
     start: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false
     },
     end: {
-      type: DataTypes.DATE,
-      allowNull: false
+      type: DataTypes.STRING,
+      allowNull: true
     }
   });
 

@@ -76,6 +76,17 @@ module.exports = function(app) {
       });
     });
 
+    app.put("/api/propositos", function (req, res) {
+      db.Propositos.update(
+        {Comentarios: req.body.Comentarios}, //Como solo quiero actualizar el Status, lo coloco aquí
+        {where: {IdProposito:req.body.IdProposito}}
+      )
+      .then(function(dbPropositos) {
+        res.json(dbPropositos)
+      })
+     
+     })
+
 //--FIN PARTE PROPÓSITO
 
 
@@ -108,15 +119,21 @@ module.exports = function(app) {
     //   });
     // });
 
-    app.put("/api/todosidtodos/", function(req, res) {
+ 
+
+    app.put("/api/todosidtodos", function (req, res) {
       db.ToDos.update(
-        req.body,
-       
-        {where: {IdTodo: req.body.id} }
-      ).then(function(dbToDos) {
-        res.json(dbToDos);
-      });
-    });
+        {IdStatus: req.body.IdStatus}, //Como solo quiero actualizar el Status, lo coloco aquí
+        {where: {IdTodo:req.body.IdTodo}}
+      )
+      .then(function(dbToDos) {
+        res.json(dbToDos)
+      })
+     
+     })
+
+   
+      
 
     //---_______________
 

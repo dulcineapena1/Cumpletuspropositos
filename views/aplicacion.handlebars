@@ -95,16 +95,38 @@
                                     <label for="llenar-todo">Acción</label>
                                     <input id="llenar-todo" class="form-control"  placeholder="Acción">
                                   </div>
-                                  
-                                  <form action="/action_page.php">
-                                    <label for="fecha-inicio">Fecha de inicio</label>
-                                    <input id="fecha-inicio" type="datetime-local" name="bdaytime">
-                                    <br><br>
-                                    <label for="fecha-termino">Fecha de término</label>
-                                    <input id="fecha-termino" type="datetime-local" name="bdaytime">
-                                    {{!-- ESTO ES SUBMIT DEL DATETIMEPIKER <input type="submit" value="Send"> --}}
-                                  </form>
 
+                                 
+                                  <div class="form-check2 col-md-5">
+                                    <input class="form-check-input2" type="checkbox" value="0" id="norecurrente">
+                                    <label class="form-check-label2" for="norecurrente">No recurrente</label>
+                                 
+                                    <input class="form-check-input" type="checkbox" value="1" data-dia="Lunes" id="L">
+                                    <label class="form-check-label" for="L">Lunes</label>
+                                    
+                                    <input class="form-check-input" type="checkbox" value="2" data-dia="Martes" id="M">
+                                    <label class="form-check-label" for="M">Martes</label>
+                                    <input class="form-check-input" type="checkbox" value="3" data-dia="Mièrcoles" id="Mi">
+                                    <label class="form-check-label" for="Mi">Miércoles</label>
+                                    <input class="form-check-input" type="checkbox" value="4" data-dia="Jueves" id="J">
+                                    <label class="form-check-label" for="J">Jueves</label>
+                                    <input class="form-check-input" type="checkbox" value="5" data-dia="Viernes" id="V">
+                                    <label class="form-check-label" for="V">Viernes</label>
+                                  </div>
+
+                                  <br><br>
+                                  
+                                  <div class="col-md-5 actionpage">
+                                    <form action="/action_page.php">
+                                      <label for="fecha-inicio">Fecha de inicio</label>
+                                      <input id="fecha-inicio" type="datetime-local" name="bdaytime">
+                                      <br><br>
+                                      <label for="fecha-termino">Fecha de término</label>
+                                      <input id="fecha-termino" type="datetime-local" name="bdaytime">
+                                      {{!-- ESTO ES SUBMIT DEL DATETIMEPIKER <input type="submit" value="Send"> --}}
+                                    </form>
+                                  </div>
+                                  
                                   {{!-- <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="0" id="obligatorio">
                                     <label class="form-check-label" for="obligatorio">Obligatorio</label>
@@ -126,19 +148,19 @@
 
 
                 {{!-- Sección Mis Propósitos. Se llena con lo que tenga la base de datos --}}
-                  <div class="col-md-8 listadoproposito">
-                    <div id="elproposito" class="col-md-8 elproposito">
+                  <div class="col-md-10 listadoproposito">
+                    <div id="elproposito" class="row elproposito">
                      
                     </div>
                   </div>
-                  {{!-- ESTO PARA UNA SIGUIENTE FASE, MUESTRA BARRA DE PROGRESO PARA CUMPLIR UN PROPÓSITO
-                  <div class="col-md-4 barraprogreso">
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-                    </div>
-                  </div>
-                </div>
-                 --}}     
+                  {{!-- ESTO PARA UNA SIGUIENTE FASE, MUESTRA BARRA DE PROGRESO PARA CUMPLIR UN PROPÓSITO --}}
+                  {{!-- <div class="col-md-4 barraprogreso"> --}}
+                    {{!-- <div class="progress">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"></div>
+                    </div> --}}
+                  {{!-- </div> --}}
+               
+                     
             </div>
 
             <div class="row current">
@@ -188,15 +210,18 @@
     var color=''
 
       
-    
   hacerget();
-    function hacerget(){
-    $.get("/api/todos", function(data) {
+
+  function hacerget(){
+    $.get("/api/todos", function(data) {      
       for (var i = 0; i < data.length; i++) {
+    
+        //console.log("rrrr",[data[i].recurrente])
             terciaria[i] = {
                 title: data[i].title,
                 start: data[i].start,
                 end: data[i].end,
+                dow: [parseInt(data[i].recurrente)],
                 color: color
             };
         }
@@ -210,7 +235,7 @@
         console.log("terciaria",terciaria);
   
         $('#calendar').fullCalendar({
-            eventColor: 'green',
+            eventColor: '#4aad2a',
             height: 'auto', // Indispensable para poder acomodarlo visualmente
             header: {
               left: 'prev,next today',
@@ -235,7 +260,7 @@
         
     //Esto logra un resultado similar al que hice con el loop, se deja como referencia
     //elobjeto.push({title: titulo, start:inicio, end:fin});
-    //console.log("el evento Calendar",elobjeto);
+
 
   });//fin document ready
 </script>
