@@ -165,8 +165,12 @@ h1:after {
 }
 
 .progress{
-  margin-bottom: 9%;
-  background-color: #b1b3b0;
+  top: -24px;
+    position: relative;
+    background-color: #b1b3b0;
+    width: 28%;
+    display: table-cell;
+  float: right;
 }
 
 .progress-bar{
@@ -249,15 +253,28 @@ ul{
 }
 
 
-.h3parrafo:hover{
+.h8parrafo:hover{
     border: 1px;
     border-color: #2f611e;
     border-style: dashed;
+    cursor:pointer;
  }
 
- .done {
+.done {
   text-decoration: line-through;
   text-decoration-color: white;
+}
+li[data-status='1'] {
+  text-decoration: line-through;
+  text-decoration-color: white;
+}
+
+li[data-fechainicio] {
+  width: 50%;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    float: left;
 }
 
 #agregar-proposito{
@@ -289,17 +306,22 @@ ul{
   background-color: white;
   color: #4aad2a;
   border-radius: 39px;
-  margin-bottom: 11px;
+  cursor:pointer;
   margin-left: 65px;
 }
 
 #elproposito{
   width: 100%;
-  margin: auto;
+    margin: auto;
+    display: inline-grid;
+    text-align: center;
+}
+#tbodypropositoss{
+ 
 }
 
 .delete-proposito{
-  margin-bottom: 14px;
+
     margin-left: 117%;
 
     border: #aa4016;
@@ -342,4 +364,23 @@ li{
 .h8parrafo{
   background-color: #2b9c2b;
   font-size: 162%;
+}
+
+.form-check2{
+  margin-left: 49%;
+  display: table-caption;
+  padding-left: 5%;
+}
+
+.form-check-input2 {
+  margin-left: -19px;
+}
+
+.form-check-label2{
+  margin-left: -19px;
+    width: 74px;
+}
+
+.actionpage{
+  display: -webkit-inline-box;
 }

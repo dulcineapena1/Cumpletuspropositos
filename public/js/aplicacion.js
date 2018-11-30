@@ -1,5 +1,6 @@
 $(document).ready(function(){
   $("#current2").hide(); 
+ 
 
   getProposito(); //Obtener todos los propósitos en front si ya hay
   
@@ -17,6 +18,7 @@ $(document).ready(function(){
     $("#agregar-proposito").hide(); 
     $(".listadoproposito").toggle(); 
     $('#myModal').toggle();
+
     
   });
 
@@ -83,14 +85,20 @@ $(document).ready(function(){
   function createPropositosRow(newproposito) {
       console.log(newproposito);
       var elnombreProposito= newproposito.Proposito.replace(/\ /g, '-'); //como quiero ponerle al valor de un botón (data) el nombre del propósito, tengo que borrar los espacios para que lo agarre, con esto reemplazo espacio por -
+    
       var newdiv = $("<tbody id=tbodypropositoss>").append("<tr>");  
       newdiv.data("proposito",  newproposito);
-      // newdiv.append("<span class=badge>" +  newproposito.IdProposito +"</span>" );
       newdiv.append("<td data-nombreproposito2="+elnombreProposito+"  id="+newproposito.IdProposito+" class=eltdproposito>" +  newproposito.Proposito +"</td>" );
       newdiv.append("<td><button data-nombreproposito="+elnombreProposito+" id="+newproposito.IdProposito+" class=boton-hacer-todo type=button class=btn  data-toggle=modal '>Agregar Acción</button></td>");
       newdiv.append("<td><button data-borraridproposito="+newproposito.IdProposito+" class=delete-proposito>X</button></td>");
+      newdiv.append("<div class=progress><div data-idpropositoprogress="+ newproposito.IdProposito+" class=progress-bar role=progressbar aria-valuenow=100 aria-valuemin=0 aria-valuemax=100 style=width:"+newproposito.Comentarios+"%"+"    >"  +"."+ "</div></div>");
+
       return newdiv;
   }
+
+
+
+
 
   // Esto hace el append al front de todo lo anterior, este paso es necesario porque se hace el append uno por uno a ir haciendo submit
   function renderPropositosList(rows) {
@@ -155,6 +163,10 @@ $(document).ready(function(){
         $("#obligatorio").attr("value",0);
     }
   });
+  //Agregar o quitar disabled a la fecha de término en front cuando se seleccione o deseleccione que sea recurrente
+  // $( '.form-check-input' ).on( 'change', function() {
+  //   $("#fecha-termino").attr('disabled',!this.checked);
+  // });
 
 
 
@@ -162,25 +174,59 @@ $(document).ready(function(){
   $("#boton-registro-todo").on("click",function(){
     event.preventDefault();
     location.reload();//Vuelvo a cargar la página completa para que se muestren los cambios
-
     $('#myModal2').toggle(); //Oculto el modal
     
     // No mandar nada si el los campos están vacíos
-     if (!$("#llenar-todo").val().trim() || !$("#fecha-inicio").val() || !$("#fecha-termino").val() ) {
-       return;
-     }
-   
-    // Calling the mandarformtodo function and passing in the value of the name
-    //Se está creando un objeto con los valores del front
-    mandarformtodo({
-      title: $("#llenar-todo").val().trim(),
-      IdProposito: $("#boton-registro-todo").attr("data-id-proposito"),
-      IdStatus: 0, //le pongo de default el 0
-      Obligatorio: 0,
-                    //$("#obligatorio").val(),// ya cambié un paso arriba el valor de esto por 0/1
-      start: $("#fecha-inicio").val(),
-      end: $("#fecha-termino").val()
-    });
+    if (!$("#llenar-todo").val().trim() || !$("#fecha-inicio").val()  ) {
+      return;
+    }
+
+    // Los siguientes dos if, son para mandar una información u otra según se marque que el evento sea recurrente o no. Se hizo de esta 
+    // forma porque fullCalendar muestra error al mandar una fecha de end si el evento es recurrente. Ese es error propio de fullCalendar
+    if ($(".form-check-input2").is(':checked')){
+        //Se está creando un objeto con los valores del front
+        mandarformtodo({
+          title: $("#llenar-todo").val().trim(),
+          IdProposito: $("#boton-registro-todo").attr("data-id-proposito"),
+          IdStatus: 0, //le pongo de default el 0
+          Obligatorio: 0,
+          recurrente:  $('.form-check-input2:checked').val(),      
+          start: $("#fecha-inicio").val(),
+          end: $("#fecha-termino").val()
+        });
+    }
+     
+
+
+    if ($(".form-check-input").is(':checked')){
+      var arr = [];
+      $('input.form-check-input:checkbox:checked').each(function () {
+          arr.push($(this).val());//Es para poder obtenter el valor de todos a los que se le puso palomita
+      });
+      
+      //Se está creando un objeto con los valores del front
+      mandarformtodo({
+        title: $("#llenar-todo").val().trim(),
+        IdProposito: $("#boton-registro-todo").attr("data-id-proposito"),
+        IdStatus: 0, //le pongo de default el 0
+        Obligatorio: 0,
+        recurrente:  arr.toString(), //Lo convierto a string porque de lo contrario no puede guardarse en el row de mysql  
+                    //$('.form-check-input:checked').val(),  
+        start: $("#fecha-inicio").val().substr(11, 5),
+       // end:  $('.form-check-input:checked').attr("data-dia")
+      });
+    }
+    // //Se está creando un objeto con los valores del front
+    // mandarformtodo({
+    //   title: $("#llenar-todo").val().trim(),
+    //   IdProposito: $("#boton-registro-todo").attr("data-id-proposito"),
+    //   IdStatus: 0, //le pongo de default el 0
+    //   Obligatorio: 0,
+    //                 //$("#obligatorio").val(),// ya cambié un paso arriba el valor de esto por 0/1
+    //   recurrente:  $('.form-check-input:checked').val(),      
+    //   start: $("#fecha-inicio").val(),
+    //   end: $("#fecha-termino").val()
+    // });
     
   }); //cierre onclick boton-registro-todo
 
@@ -188,6 +234,7 @@ $(document).ready(function(){
   // A function for creating an todo. (newtodo) es el contenedor del objeto creado arriba
   function mandarformtodo(newtodo) {
      $.post("/api/todos/", newtodo)    
+     $.post("/api/todosidtodos/", newtodo)  
   }
  
 
@@ -218,16 +265,19 @@ $(document).ready(function(){
   
   // This function constructs a todos in HTML
   function createNewRowToDo(lostodos){
+    var recurrentes;
+    if(lostodos.recurrente==0){recurrentes= ""}
+    if(lostodos.recurrente==4){recurrentes= "Los Jueves a las"};if(lostodos.recurrente==1){recurrentes= "Los Lunes a las"};if(lostodos.recurrente==2){recurrentes= "Los Martes a las"};if(lostodos.recurrente==3){recurrentes= "Los Miércoles a las"};
+    if(lostodos.recurrente==5){recurrentes= "Los Viernes a las"};
+
+    var elfin;
+    if(lostodos.end==null){elfin=lostodos.start};if(lostodos.end!==null){elfin=lostodos.end};
+
     var newdivtodo = $("<ul>");  
     newdivtodo.data("todos",  lostodos);
-    //newdivtodo.append("<span class=badge>" +  newproposito.IdProposito +"</span>" );
-    //newdivtodo.append("<li id="+elnombrepropositodeltd+" class=h2parrafo >" +  lostodos.title +"</li>" );
-    newdivtodo.append("<li id="+lostodos.IdTodo+" class=h8parrafo >" +  lostodos.title +"</li>" );
-    newdivtodo.append("<li data-fechainicio="+lostodos.start+" class=h3parrafo ><p class=h7parrafo>"+"INICIA"+ "</p>"+ lostodos.start +"</li>" );
-    newdivtodo.append("<li data-fechatermino="+lostodos.end+" class=h3parrafo ><p class=h7parrafo>"+"TERMINA"+ "</p>"+ lostodos.end +"</li>" );
-    //newdivtodo.append("<td><button data-nombreproposito="+elnombreProposito+" id="+newproposito.IdProposito+" class=boton-hacer-todo type=button class=btn  data-toggle=modal '>Crear ToDo</button></td>");
-    // newdiv.append("<td><a href='/cms?author_id=" +  newproposito.id + "'>Create a Post</a></td>");
-    // newdiv.append("<td><a style='cursor:pointer;color:red' class='delete-author'>Delete Author</a></td>");
+    newdivtodo.append("<li data-idpropositoentodo="+lostodos.IdProposito+" id="+lostodos.IdTodo+" class=h8parrafo data-status= "+lostodos.IdStatus+" >" +  lostodos.title +"</li>" );
+    newdivtodo.append("<li data-fechainicio="+lostodos.start+" class=h3parrafo ><p class=h7parrafo>"+"INICIA"+ "</p>"+  recurrentes + " "+  lostodos.start.replace(/\T/g, ' a las ') + " " + "hrs." + "</li>" );
+    newdivtodo.append("<li data-fechatermino="+lostodos.end+" class=h3parrafo ><p class=h7parrafo>"+"TERMINA"+ "</p>"+ elfin.replace(/\T/g, ' a las ') + " " + "hrs." + "</li>" );
     return newdivtodo;
   }
  
@@ -235,15 +285,78 @@ $(document).ready(function(){
   // Esto hace el append al front de todo lo anterior
   function renderTodoList(rows) {
     $("#current2-listado").append(rows)
-    // if (rows.length) {
-    //   console.log(rows);
-    //   $("#elproposito ").prepend(rows);
-    // }
-    // else {
-    //   renderEmpty();
-    // }
   }
 
+
+  //Actualizar estado del ToDo a "hecho"
+  $("body").on("click", ".h8parrafo", function(){
+    id=$(this).attr("id");//id del ToDo
+    idpropositoentodo= $(this).attr("data-idpropositoentodo");
+
+    $(this).attr('data-status', $(this).attr('data-status') == 0 ? 1 : 0); //Cambio el data-status en front tipo toggle
+    
+    var actualizarstatus ={
+        IdStatus: $(this).attr("data-status"), //Obtiene el valor del data-status que previamente cambio a 0/1 cada que dan click"
+        IdTodo: id, //El IdTodo lo ocupo para poder seleccionar solo ese id y cambiarle el valor de status 
+    }
+
+    $.ajax({
+      method: "PUT", 
+      url: "/api/todosidtodos",
+      data: actualizarstatus
+    }).then(barraprogreso);
+  })//Cierre onclilck .h8parrafo
+
+
+  function barraprogreso(){ 
+    console.log("barrarogreso",idpropositoentodo);
+    var resultadototal2=0;
+    //todos los todos de ese proposito
+    $.get("/api/todos/"+idpropositoentodo, function(data) {
+    var cien=100;
+    var vecesdehecho=0;
+    var totaldedatos=0;
+    
+      for (var i = 0; i < data.length; i++) {
+          totaldedatos=data.length;
+          console.log("total de datos",totaldedatos);
+
+          if(data[i].IdStatus==1){
+            vecesdehecho++;
+          }
+          console.log("vecesdehecho",vecesdehecho);    
+      } 
+
+      var resultadototal1= cien/totaldedatos;
+      resultadototal2= resultadototal1*vecesdehecho; //Este es el porcentaje de progreso en la barra progress
+      console.log("resultadototal1",resultadototal1);
+      console.log("resultadototal2",resultadototal2); 
+
+      actualizarprogreso ({
+        Comentarios: resultadototal2,
+        IdProposito: idpropositoentodo, 
+      })
+
+
+
+    })
+   // .then(barraprogreso2);
+
+  
+
+  }
+
+  function actualizarprogreso(nuevabarra){
+    // console.log("resultadototal2",resultadototal2); 
+    // console.log("resultadototal2ssdfsdf",idpropositoentodo); 
+      console.log(nuevabarra)
+      $.ajax({
+        method: "PUT", 
+        url: "/api/propositos",
+        data: nuevabarra
+      })
+      location.reload();
+  }
 
 
   

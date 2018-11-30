@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "password",
+    "password": "mac1as73",
     "database": "propositosdb",
     "host": "localhost",
     "dialect": "mysql"

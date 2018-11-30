@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     IdStatus: {
       type: DataTypes.INTEGER,
+      defaultValue: false,
       allowNull: false,
       validate: {
         not: ["^[a-z]+$", "i"]
@@ -30,13 +31,17 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
+    recurrente: {
+      type: DataTypes.STRING,//estaba como integer
+      allowNull: false
+    },
     start: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.STRING,
       allowNull: false
     },
     end: {
-      type: DataTypes.DATEONLY,
-      allowNull: false
+      type: DataTypes.STRING,
+      allowNull: true
     }
   });
 
