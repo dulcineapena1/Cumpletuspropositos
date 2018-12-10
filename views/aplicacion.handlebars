@@ -206,14 +206,18 @@
   //  })
 
 
-    var terciaria = []; //Almacena el objeto en un formato aceptable para FullCalendar
-    var color=''
+  var terciaria = []; //Almacena el objeto en un formato aceptable para FullCalendar
+  //  var color=''
+
+  var url= window.location.href; //obtengo el valor del usuario del url, porque yo se lo puse ahí desde el login.js
+  var idusuarioactual= url.split('aplicacion').pop().split('?')[0]
+  console.log("id del usuario actual", idusuarioactual)
 
       
   hacerget();
 
   function hacerget(){
-    $.get("/api/todos", function(data) {      
+    $.get("/api/todosidusuario/" + idusuarioactual, function(data) {      
       for (var i = 0; i < data.length; i++) {
     
         //console.log("rrrr",[data[i].recurrente])
@@ -222,7 +226,7 @@
                 start: data[i].start,
                 end: data[i].end,
                 dow: [parseInt(data[i].recurrente)],
-                color: color
+              //  color: color
             };
         }
     }).then(laultima)//fin getapi
@@ -231,7 +235,7 @@
 
     function laultima(){
         
-        console.log("color",color);
+       // console.log("color",color);
         console.log("terciaria",terciaria);
   
         $('#calendar').fullCalendar({

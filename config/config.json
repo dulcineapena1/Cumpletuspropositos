@@ -8,7 +8,7 @@
   },
   "test": {
     "username": "root",
-    "password": "mac1as73",
+    "password": "password",
     "database": "propositosdb",
     "host": "localhost",
     "dialect": "mysql",

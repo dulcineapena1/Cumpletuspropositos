@@ -3,9 +3,28 @@ var db = require("../models");
 module.exports = function(app) {
   
 //---INICIO PARTE LOGIN
-    //Registrar Usuario (en login)
-    app.post("/api/registro", function(req, res) {
+    //REGISTRAR usuario nuevo
+    app.post("/api/usuario", function(req, res) {
       db.Usuario.create(req.body).then(function(dbUsuario) {
+        res.json(dbUsuario);
+      });
+    });
+
+    //OBTENER LO POSTEADO Registrar Usuario 
+    // Find all Usuario and return them to the user with res.json
+    app.get("/api/usuario", function(req, res) {
+      db.Usuario.findAll({}).then(function(dbUsuario) {
+        res.json(dbUsuario);
+      });
+    });
+
+    //ENCONTRAR EL QUE COINCIDA con el nombre como parámetro :usuario
+    app.get("/api/usuario/:usuario", function(req, res) {
+      db.Usuario.findOne({
+        where: {
+          Usuario: req.params.usuario
+        }
+      }).then(function(dbUsuario) {
         res.json(dbUsuario);
       });
     });
@@ -53,11 +72,11 @@ module.exports = function(app) {
     });
 
 
-    //ENCONTRAR EL QUE COINCIDA Encontrar un propósito en esa url según el idPropósito que le pongas en :id
+    //ENCONTRAR EL QUE COINCIDA Encontrar un propósito en esa url según el IdUsuario que le pongas en :id
     app.get("/api/propositos/:id", function(req, res) {
-      db.Propositos.findOne({
+      db.Propositos.findAll({ //era findOne
         where: {
-          idProposito: req.params.id
+          IdUsuario: req.params.id // era idProposito
         }
       }).then(function(dbPropositos) {
         res.json(dbPropositos);
@@ -76,9 +95,10 @@ module.exports = function(app) {
       });
     });
 
+    //ACTUALIZAR el progreso en tabla propósito
     app.put("/api/propositos", function (req, res) {
       db.Propositos.update(
-        {Comentarios: req.body.Comentarios}, //Como solo quiero actualizar el Status, lo coloco aquí
+        {Progreso: req.body.Progreso}, //Como solo quiero actualizar el Status, lo coloco aquí
         {where: {IdProposito:req.body.IdProposito}}
       )
       .then(function(dbPropositos) {
@@ -91,6 +111,24 @@ module.exports = function(app) {
 
 
 //--INICIO PARTE TODO
+    //---______________ToDo by IdUsuario
+    app.get("/api/todosidusuario/:id", function(req, res) {
+      db.ToDos.findAll({//aquí era findOne
+        where: {
+          IdUsuario: req.params.id,
+        },
+        limit:30
+      }).then(function(dbToDos) {
+        res.json(dbToDos);
+      });
+    });
+
+
+    //---______________Fin ToDo by IdUsuario
+
+
+
+
     //---______________ToDo by IdTodo
     app.get("/api/todosidtodos/", function(req, res) {
       db.ToDos.findAll({}).then(function(dbToDos) {
@@ -121,7 +159,7 @@ module.exports = function(app) {
 
  
 
-    app.put("/api/todosidtodos", function (req, res) {
+    app.put("/api/todosidtodos/", function (req, res) {
       db.ToDos.update(
         {IdStatus: req.body.IdStatus}, //Como solo quiero actualizar el Status, lo coloco aquí
         {where: {IdTodo:req.body.IdTodo}}
@@ -131,10 +169,6 @@ module.exports = function(app) {
       })
      
      })
-
-   
-      
-
     //---_______________
 
 

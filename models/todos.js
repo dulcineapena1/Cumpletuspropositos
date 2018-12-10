@@ -12,6 +12,13 @@ module.exports = function(sequelize, DataTypes) {
         len: [1, 250]
       }
     },
+    IdUsuario: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        not: ["^[a-z]+$", "i"]
+      }
+    },
     IdProposito: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -19,6 +26,7 @@ module.exports = function(sequelize, DataTypes) {
         not: ["^[a-z]+$", "i"]
       }
     },
+    
     IdStatus: {
       type: DataTypes.INTEGER,
       defaultValue: false,
@@ -27,10 +35,10 @@ module.exports = function(sequelize, DataTypes) {
         not: ["^[a-z]+$", "i"]
       }
     },
-    Obligatorio: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
-    },
+    // Obligatorio: {
+    //   type: DataTypes.BOOLEAN,
+    //   allowNull: false
+    // },    ESTO ES PARA UNA SIGUIENTE FASE, MARCAR SI UN TODO ES OBLIGATORIO HACERLO O NO
     recurrente: {
       type: DataTypes.STRING,//estaba como integer
       allowNull: false

@@ -1,18 +1,27 @@
 var db = require("../models");
 
 module.exports = function(app) {
+  // app.get("/", function(req, res) {
+  //   res.render("aplicacion");
+  // });
+
   app.get("/", function(req, res) {
-    res.render("aplicacion");
+    res.render("index");
   });
 
-  // //Load aplicacion page
-  // app.get("/", function(req, res) {
-  //   db.Example.findAll({}).then(function(dbExamples) {
-  //     res.render("aplicacion", {
-  //       propositos: porpositosdb
-  //     });
-  //   });
-  // });
+  
+  app.get("/aplicacion:nombre", function(req, res) {
+    db.Usuario.findOne({ where: { Nombre: req.params.nombre } }).then(function() {
+      res.render("aplicacion");
+    });
+  });
+
+
+
+
+
+
+
 
   // Load index page
   // app.get("/", function(req, res) {

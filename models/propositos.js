@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
         not: ["^[a-z]+$", "i"]
       }
     },
-    Comentarios: {
+    Progreso: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
