@@ -43,6 +43,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,//estaba como integer
       allowNull: false
     },
+    recurrente: {
+      type: DataTypes.STRING,//estaba como integer
+      allowNull: false
+    },
     start: {
       type: DataTypes.STRING,
       allowNull: false

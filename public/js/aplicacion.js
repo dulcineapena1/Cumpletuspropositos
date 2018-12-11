@@ -1,5 +1,6 @@
 $(document).ready(function(){
   $("#current2").hide(); 
+ 
 
   var url= window.location.href; //obtengo el valor del usuario del url, porque yo se lo puse ahí desde el login.js
   var url2= url.split("?").pop();
@@ -24,6 +25,11 @@ $(document).ready(function(){
     $("#agregar-proposito").hide(); 
     $(".listadoproposito").toggle(); 
     $('#myModal').toggle();
+<<<<<<< HEAD
+=======
+
+    
+>>>>>>> 8d518ff82f20a65219be7de9542adef7fbcf470c
   });
 
   
@@ -95,12 +101,22 @@ $(document).ready(function(){
       newdiv.append("<td data-nombreproposito2="+elnombreProposito+"  id="+newproposito.IdProposito+" class=eltdproposito>" +  newproposito.Proposito +"</td>" );
       newdiv.append("<td><button data-nombreproposito="+elnombreProposito+" id="+newproposito.IdProposito+" class=boton-hacer-todo type=button class=btn  data-toggle=modal '>Agregar Acción</button></td>");
       newdiv.append("<td><button data-borraridproposito="+newproposito.IdProposito+" class=delete-proposito>X</button></td>");
+<<<<<<< HEAD
       newdiv.append("<div class=progress><div data-idpropositoprogress="+ newproposito.IdProposito+" class=progress-bar role=progressbar aria-valuenow=100 aria-valuemin=0 aria-valuemax=100 style=width:"+newproposito.Progreso+"%"+"    >"  +"."+ "</div></div>");
+=======
+      newdiv.append("<div class=progress><div data-idpropositoprogress="+ newproposito.IdProposito+" class=progress-bar role=progressbar aria-valuenow=100 aria-valuemin=0 aria-valuemax=100 style=width:"+newproposito.Comentarios+"%"+"    >"  +"."+ "</div></div>");
+>>>>>>> 8d518ff82f20a65219be7de9542adef7fbcf470c
 
       return newdiv;
   }
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 8d518ff82f20a65219be7de9542adef7fbcf470c
   // Esto hace el append al front de todo lo anterior, este paso es necesario porque se hace el append uno por uno a ir haciendo submit
   function renderPropositosList(rows) {
       $("#elproposito").children().not(":last").remove(); //como este proceso duplica los elementos, tengo que borrar el elemento duplicado con estas dos líneas
@@ -165,6 +181,10 @@ $(document).ready(function(){
   $( '.form-check-input' ).on( 'click', function() {
     $("#fecha-termino").attr('disabled',this.checked);
   });
+  //Agregar o quitar disabled a la fecha de término en front cuando se seleccione o deseleccione que sea recurrente
+  // $( '.form-check-input' ).on( 'change', function() {
+  //   $("#fecha-termino").attr('disabled',!this.checked);
+  // });
 
 
   //Mandar el ToDo del modal
@@ -185,9 +205,14 @@ $(document).ready(function(){
         mandarformtodo({
           title: $("#llenar-todo").val().trim(),
           IdProposito: $("#boton-registro-todo").attr("data-id-proposito"),
+<<<<<<< HEAD
           IdUsuario: idusuarioactual,
           IdStatus: 0, //le pongo de default el 0
           // Obligatorio: 0,
+=======
+          IdStatus: 0, //le pongo de default el 0
+          Obligatorio: 0,
+>>>>>>> 8d518ff82f20a65219be7de9542adef7fbcf470c
           recurrente:  $('.form-check-input2:checked').val(),      
           start: $("#fecha-inicio").val(),
           end: $("#fecha-termino").val()
@@ -206,6 +231,7 @@ $(document).ready(function(){
       mandarformtodo({
         title: $("#llenar-todo").val().trim(),
         IdProposito: $("#boton-registro-todo").attr("data-id-proposito"),
+<<<<<<< HEAD
         IdUsuario: idusuarioactual,
         IdStatus: 0, //le pongo de default el 0
         // Obligatorio: 0,
@@ -216,6 +242,28 @@ $(document).ready(function(){
               //$('.form-check-input:checked').attr("data-dia")
       });
     }
+=======
+        IdStatus: 0, //le pongo de default el 0
+        Obligatorio: 0,
+        recurrente:  arr.toString(), //Lo convierto a string porque de lo contrario no puede guardarse en el row de mysql  
+                    //$('.form-check-input:checked').val(),  
+        start: $("#fecha-inicio").val().substr(11, 5),
+       // end:  $('.form-check-input:checked').attr("data-dia")
+      });
+    }
+    // //Se está creando un objeto con los valores del front
+    // mandarformtodo({
+    //   title: $("#llenar-todo").val().trim(),
+    //   IdProposito: $("#boton-registro-todo").attr("data-id-proposito"),
+    //   IdStatus: 0, //le pongo de default el 0
+    //   Obligatorio: 0,
+    //                 //$("#obligatorio").val(),// ya cambié un paso arriba el valor de esto por 0/1
+    //   recurrente:  $('.form-check-input:checked').val(),      
+    //   start: $("#fecha-inicio").val(),
+    //   end: $("#fecha-termino").val()
+    // });
+    
+>>>>>>> 8d518ff82f20a65219be7de9542adef7fbcf470c
   }); //cierre onclick boton-registro-todo
 
 
@@ -223,7 +271,10 @@ $(document).ready(function(){
   function mandarformtodo(newtodo) {
      $.post("/api/todos/", newtodo)    
      $.post("/api/todosidtodos/", newtodo)  
+<<<<<<< HEAD
      $.post("/api/todosidusuario/", newtodo) 
+=======
+>>>>>>> 8d518ff82f20a65219be7de9542adef7fbcf470c
   }
  
 
@@ -255,9 +306,15 @@ $(document).ready(function(){
   // This function constructs a todos in HTML
   function createNewRowToDo(lostodos){
     var recurrentes;
+<<<<<<< HEAD
     if(lostodos.recurrente==10){recurrentes= ""}
     if(lostodos.recurrente==4){recurrentes= "Los Jueves a las"};if(lostodos.recurrente==1){recurrentes= "Los Lunes a las"};if(lostodos.recurrente==2){recurrentes= "Los Martes a las"};if(lostodos.recurrente==3){recurrentes= "Los Miércoles a las"};
     if(lostodos.recurrente==5){recurrentes= "Los Viernes a las"};if(lostodos.recurrente==6){recurrentes= "Los Sábados a las"};if(lostodos.recurrente==0){recurrentes= "Los Domingos a las"};
+=======
+    if(lostodos.recurrente==0){recurrentes= ""}
+    if(lostodos.recurrente==4){recurrentes= "Los Jueves a las"};if(lostodos.recurrente==1){recurrentes= "Los Lunes a las"};if(lostodos.recurrente==2){recurrentes= "Los Martes a las"};if(lostodos.recurrente==3){recurrentes= "Los Miércoles a las"};
+    if(lostodos.recurrente==5){recurrentes= "Los Viernes a las"};
+>>>>>>> 8d518ff82f20a65219be7de9542adef7fbcf470c
 
     var elfin;
     if(lostodos.end==null){elfin=lostodos.start};if(lostodos.end!==null){elfin=lostodos.end};
@@ -322,6 +379,7 @@ $(document).ready(function(){
       console.log("resultadototal2",resultadototal2); 
 
       actualizarprogreso ({
+<<<<<<< HEAD
         Progreso: resultadototal2,
         IdProposito: idpropositoentodo, 
       })
@@ -330,6 +388,24 @@ $(document).ready(function(){
   }
 
   function actualizarprogreso(nuevabarra){
+=======
+        Comentarios: resultadototal2,
+        IdProposito: idpropositoentodo, 
+      })
+
+
+
+    })
+   // .then(barraprogreso2);
+
+  
+
+  }
+
+  function actualizarprogreso(nuevabarra){
+    // console.log("resultadototal2",resultadototal2); 
+    // console.log("resultadototal2ssdfsdf",idpropositoentodo); 
+>>>>>>> 8d518ff82f20a65219be7de9542adef7fbcf470c
       console.log(nuevabarra)
       $.ajax({
         method: "PUT", 

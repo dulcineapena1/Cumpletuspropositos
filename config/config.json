@@ -4,6 +4,7 @@
     "password": "password",
     "database": "propositosdb",
     "host": "localhost",
+
     "dialect": "mysql"
   },
   "test": {
