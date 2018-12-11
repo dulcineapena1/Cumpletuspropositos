@@ -22,7 +22,6 @@ $("#no-estoy-registrado").on("click", function() {
   $("#registrarse").toggle(); //muestro el form para registrarse
 });
 
-<<<<<<< HEAD
 // Registrar usuario nuevo
 $("#boton-registro-usuario").on("click",function(){
   event.preventDefault();
@@ -68,53 +67,4 @@ $("#ingresar").on("click",function(){
     })
 
 
-=======
-$("#boton-registro").on("click", function(event) {
-  event.preventDefault();
-
-  var newUsuario = {
-    nombrereg: $("#nombrereg")
-      .val()
-      .trim(),
-    apaterno: $("#apellido-paternoreg")
-      .val()
-      .trim(),
-    amaterno: $("#apellido-maternoreg")
-      .val()
-      .trim(),
-    emailreg: $("#correoreg")
-      .val()
-      .trim(),
-    telefonoreg: $("#telefonoreg")
-      .val()
-      .trim(),
-    usuario: $("#usuarioreg")
-      .val()
-      .trim(),
-    contrasena: $("#contraseñareg")
-      .val()
-      .trim()
-  };
-
-  console.log(newUsuario);
-  $.post("/api/registro", newUsuario).then(function() {
-    window.location.href = "/";
-  });
-});
-
-$("#ingresar").on("click", function(event) {
-  event.preventDefault();
-  var logeo = {
-    usuario: $("#usuariolog")
-      .val()
-      .trim(),
-    contrasena: $("#contrasenalog")
-      .val()
-      .trim()
-  };
-  $.post("/api/aplicacion", logeo).then(function() {
-    console.log(logeo);
-    window.location.href = "/aplicacion";
-  });
->>>>>>> 8d518ff82f20a65219be7de9542adef7fbcf470c
 });
