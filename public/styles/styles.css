@@ -369,16 +369,10 @@ li{
 }
 
 .form-check2{
-<<<<<<< HEAD
   margin-left: 5%;
   width: 1px;
   float: left;
   padding-top: 4%;
-=======
-  margin-left: 49%;
-  display: table-caption;
-  padding-left: 5%;
->>>>>>> 8d518ff82f20a65219be7de9542adef7fbcf470c
 }
 
 .form-check-input2 {
@@ -391,7 +385,6 @@ li{
 }
 
 .actionpage{
-<<<<<<< HEAD
   margin-left: 47%;
   margin-bottom: 12%;
 }
@@ -401,7 +394,4 @@ li{
   font-size: 86%;
   padding: 2%;
   margin-bottom: 0;
-=======
-  display: -webkit-inline-box;
->>>>>>> 8d518ff82f20a65219be7de9542adef7fbcf470c
 }
