@@ -1,6 +1,5 @@
 # CumpleTusPropósitos
 
-
 _Aplicación inspirada en los deseos de año nuevo, donde puedes anotar tus propósitos, establecer acciones para lograr cada uno de ellos, verlos calendarizados y su progreso. Esta aplicación funciona con usuarios._
 
 ### Para empezar 📋
@@ -11,7 +10,23 @@ _Inicializa la aplicación en la consola _
 ```
 node server.js
 ```
+_Ingresa en el navegador _
+
+```
+localhost:3000
+```
 _Comienza registrándote, iniciando sesión y creando un propósito nuevo._
+
+## Funcionalidades🛠️
+
+* Registrar usuarios, acceso a usuarios
+* Guardar propósitos
+* Guardar acciones para cumplir cada propósito
+* Marcar acciones como "hechas"
+* Ver progreso (barra de progreso) por cada propósito
+* Ver acciones en un calendario
+* Crear acciones recurrentes y no recurrentes
+* Borrar propósitos
 
 ## Hecho con🛠️
 
