@@ -1,23 +1,17 @@
 {
   "development": {
-<<<<<<< HEAD
     "username": "root",
-    "password": "mac1as73",
+    "password": "password",
     "database": "propositosdb",
     "host": "localhost",
-=======
-    "username": "bebc54a666eb9f",
-    "password": "8c892b08",
-    "database": "heroku_5e8b45610a461f3",
-    "host": "us-cdbr-iron-east-01.cleardb.net",
->>>>>>> UltimoDulcinea
+
     "dialect": "mysql"
   },
   "test": {
-    "username": "bebc54a666eb9f",
-    "password": "8c892b08",
-    "database": "heroku_5e8b45610a461f3",
-    "host": "us-cdbr-iron-east-01.cleardb.net",
+    "username": "root",
+    "password": "password",
+    "database": "propositosdb",
+    "host": "localhost",
     "dialect": "mysql",
     "logging": false
   },
@@ -26,6 +20,7 @@
     "dialect": "mysql"
   }
 }
+
 
 
 
