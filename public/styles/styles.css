@@ -6,7 +6,7 @@
 }
 
 .header{
-  height: 67px;
+
   padding-left: 2%;
 }
 
@@ -125,6 +125,10 @@ h1:after {
   font-family: 'Cabin Condensed', sans-serif;
 }
 
+.modal-footer{
+  height: 79px;
+}
+
 .diaC, .mesC{
     margin: 0;
     font-size: 19px;
@@ -147,7 +151,7 @@ h1:after {
 }
 
 .avatar{
-  width: 24%;
+  width: 19%;
   padding-right: 6%;
 }
 
@@ -348,9 +352,7 @@ li[data-fechainicio] {
   font-size: 162%;
 }
 
-.headusuario{
-  height: 25px;
-}
+
 
 .h7parrafo{
   color: #1be81b;
@@ -367,9 +369,10 @@ li{
 }
 
 .form-check2{
-  margin-left: 49%;
-  display: table-caption;
-  padding-left: 5%;
+  margin-left: 5%;
+  width: 1px;
+  float: left;
+  padding-top: 4%;
 }
 
 .form-check-input2 {
@@ -382,5 +385,13 @@ li{
 }
 
 .actionpage{
-  display: -webkit-inline-box;
+  margin-left: 47%;
+  margin-bottom: 12%;
+}
+
+#salir-aplicacion{
+  margin-left: 18px;
+  font-size: 86%;
+  padding: 2%;
+  margin-bottom: 0;
 }

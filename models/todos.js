@@ -56,8 +56,6 @@ module.exports = function(sequelize, DataTypes) {
   ToDos.associate = function (models) {
     models.ToDos.belongsTo(models.Propositos,{
       onDelete: "CASCADE"
-      
-      
     });
   };
 

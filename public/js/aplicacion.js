@@ -13,6 +13,11 @@ $(document).ready(function(){
   getProposito(); //Obtener todos los propósitos en front si ya hay
   
 
+  //Para salir de la aplicación
+  $("#salir-aplicacion").on("click", function(){
+    window.location.href="/"
+  });
+
 
   //Para ingresar a la sección agregar nuevo propósito
   $("#agregar-proposito").on("click", function(){
@@ -207,7 +212,8 @@ $(document).ready(function(){
         recurrente:  arr.toString(), //Lo convierto a string porque de lo contrario no puede guardarse en el row de mysql  
                     //$('.form-check-input:checked').val(),  
         start: $("#fecha-inicio").val().substr(11, 5),
-       // end:  $('.form-check-input:checked').attr("data-dia")
+       // end:  0
+              //$('.form-check-input:checked').attr("data-dia")
       });
     }
   }); //cierre onclick boton-registro-todo
@@ -249,9 +255,9 @@ $(document).ready(function(){
   // This function constructs a todos in HTML
   function createNewRowToDo(lostodos){
     var recurrentes;
-    if(lostodos.recurrente==0){recurrentes= ""}
+    if(lostodos.recurrente==10){recurrentes= ""}
     if(lostodos.recurrente==4){recurrentes= "Los Jueves a las"};if(lostodos.recurrente==1){recurrentes= "Los Lunes a las"};if(lostodos.recurrente==2){recurrentes= "Los Martes a las"};if(lostodos.recurrente==3){recurrentes= "Los Miércoles a las"};
-    if(lostodos.recurrente==5){recurrentes= "Los Viernes a las"};
+    if(lostodos.recurrente==5){recurrentes= "Los Viernes a las"};if(lostodos.recurrente==6){recurrentes= "Los Sábados a las"};if(lostodos.recurrente==0){recurrentes= "Los Domingos a las"};
 
     var elfin;
     if(lostodos.end==null){elfin=lostodos.start};if(lostodos.end!==null){elfin=lostodos.end};

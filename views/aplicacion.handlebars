@@ -2,8 +2,8 @@
   <div class="row header">
       <div class="col-md-4 headusuario">
           <img class="avatar" src="img/avatarmujer.png">
-          <div class="nombreusuario">Ana López</div>
-
+          <div class="nombreusuario">Usuario</div>
+          <button type="button" id ="salir-aplicacion"class="btn btn-dark">Salir</button>
       </div>
       <div class="col-md-8 logotipo">
         <div class="textodeayuda">AGREGA UN PROPÓSITO
@@ -95,15 +95,15 @@
                                     <label for="llenar-todo">Acción</label>
                                     <input id="llenar-todo" class="form-control"  placeholder="Acción">
                                   </div>
-
+                                  Selecciona No Recurrente si es una acción que no se repetirá, o marca 1 solo día de la semana para una acción repetida.
+                                  <br><br>
                                  
                                   <div class="form-check2 col-md-5">
-                                    <input class="form-check-input2" type="checkbox" value="0" id="norecurrente">
+                                    <input class="form-check-input2" type="checkbox" value="10" id="norecurrente">
                                     <label class="form-check-label2" for="norecurrente">No recurrente</label>
                                  
                                     <input class="form-check-input" type="checkbox" value="1" data-dia="Lunes" id="L">
                                     <label class="form-check-label" for="L">Lunes</label>
-                                    
                                     <input class="form-check-input" type="checkbox" value="2" data-dia="Martes" id="M">
                                     <label class="form-check-label" for="M">Martes</label>
                                     <input class="form-check-input" type="checkbox" value="3" data-dia="Mièrcoles" id="Mi">
@@ -112,6 +112,10 @@
                                     <label class="form-check-label" for="J">Jueves</label>
                                     <input class="form-check-input" type="checkbox" value="5" data-dia="Viernes" id="V">
                                     <label class="form-check-label" for="V">Viernes</label>
+                                    <input class="form-check-input" type="checkbox" value="6" data-dia="Sábado" id="S">
+                                    <label class="form-check-label" for="S">Sábado</label>
+                                    <input class="form-check-input" type="checkbox" value="0" data-dia="Domingo" id="D">
+                                    <label class="form-check-label" for="D">Domingo</label>
                                   </div>
 
                                   <br><br>
@@ -201,7 +205,7 @@
  //     color= 'red';
  //     console.log("color",color);
        
-     // hacerget();
+   
   //
   //  })
 
@@ -219,8 +223,6 @@
   function hacerget(){
     $.get("/api/todosidusuario/" + idusuarioactual, function(data) {      
       for (var i = 0; i < data.length; i++) {
-    
-        //console.log("rrrr",[data[i].recurrente])
             terciaria[i] = {
                 title: data[i].title,
                 start: data[i].start,

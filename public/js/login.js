@@ -25,12 +25,7 @@ $("#no-estoy-registrado").on("click", function(){
 // Registrar usuario nuevo
 $("#boton-registro-usuario").on("click",function(){
   event.preventDefault();
- 
-  // No mandar nada si el campo está vacío
-  // if (!$("#llenar-proposito").val().trim()) {
-  //   return;
-  // }
- 
+  
   //Los elementos son los que están en models
   mandarregistrousuaio({
     Usuario: $("#usuarioR").val().trim(),
@@ -68,14 +63,6 @@ $("#ingresar").on("click",function(){
         window.location.href="/aplicacion" + data.IdUsuario + "?" + usuarioquierelogin 
         $(".nombreusuario").text(usuarioquierelogin);
       }
-    
-      // for (var i = 0; i < data.length; i++) {        
-      // } 
-
-      // actualizarprogreso ({
-      //   Progreso: resultadototal2,
-      //   IdProposito: idpropositoentodo, 
-      // })
   
     })
 

@@ -122,8 +122,6 @@ module.exports = function(app) {
         res.json(dbToDos);
       });
     });
-
-
     //---______________Fin ToDo by IdUsuario
 
 

@@ -1,3 +1,5 @@
+//En esta primera fase, este models NO se está utilizando
+
 module.exports = function(sequelize, DataTypes) {
   var Status = sequelize.define(
     "Status",
