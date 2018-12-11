@@ -33,6 +33,7 @@ _Comienza registrándote, iniciando sesión y creando un propósito nuevo._
 * Javascript
 * Jquery
 * Node
+* Express.js
 * Sequelize (MySql)
 * Full Calendar (calendario)
 
